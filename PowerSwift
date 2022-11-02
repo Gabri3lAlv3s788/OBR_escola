@@ -1,0 +1,56 @@
+// Referente ao motores
+
+byte motordirF = 10; 
+
+byte motordirT = 11;
+
+byte motoresqT = 5;
+
+byte motoresqF = 6;
+
+
+
+void setup() {
+ 
+pinMode(motordirF,OUTPUT);
+pinMode(motordirT,OUTPUT);
+pinMode(motoresqT,OUTPUT);
+pinMode(motoresqF,OUTPUT);
+
+}
+
+void loop() {
+  
+// Referente à potência dos motores
+analogWrite(motordirF, 150);
+analogWrite(motordirT, 0);
+analogWrite (motoresqF, 150);
+analogWrite (motoresqF, 0);
+delay (4500);
+
+analogWrite(motoresqF, 150);
+analogWrite(motoresqT, 0);
+analogWrite(motordirF, 0);
+analogWrite(motordirF, 150);
+delay (4000);
+
+analogWrite(motordirF, 150);
+analogWrite(motordirT, 0);
+analogWrite(motoresqF, 150);
+analogWrite(motoresqT, 0);
+delay (3000);
+
+analogWrite(motordirF, 150);
+analogWrite(motordirT, 0);
+analogWrite(motoresqF, 0);
+analogWrite(motoresqT, 150);
+delay (4000);
+
+analogWrite(motordirF, 150);
+analogWrite(motordirT, 0);
+analogWrite(motoresqF, 150);
+analogWrite(motoresqT, 0);
+delay (3000);
+
+
+}
