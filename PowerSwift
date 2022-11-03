@@ -10,6 +10,9 @@ byte motoresqF = 6;
 
 
 
+
+
+
 void setup() {
  
 pinMode(motordirF,OUTPUT);
@@ -19,38 +22,106 @@ pinMode(motoresqF,OUTPUT);
 
 }
 
+
+// 
+
 void loop() {
   
 // Referente à potência dos motores
-analogWrite(motordirF, 150);
-analogWrite(motordirT, 0);
-analogWrite (motoresqF, 150);
-analogWrite (motoresqF, 0);
-delay (4500);
 
-analogWrite(motoresqF, 150);
+// seguir reto 
+analogWrite(motordirF, 250); 
+analogWrite(motordirT, 0);
+analogWrite (motoresqF, 250);
+analogWrite (motoresqT, 0);
+delay (4000);
+
+
+// virar à direita
+analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
 analogWrite(motordirF, 0);
-analogWrite(motordirF, 150);
-delay (4000);
+analogWrite(motordirT, 250);
+delay (2000);
 
-analogWrite(motordirF, 150);
+
+// seguir reto
+analogWrite(motordirF, 250);
 analogWrite(motordirT, 0);
-analogWrite(motoresqF, 150);
+analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
 delay (3000);
 
-analogWrite(motordirF, 150);
+
+// virar a esquerda
+analogWrite(motordirF, 250);
 analogWrite(motordirT, 0);
 analogWrite(motoresqF, 0);
-analogWrite(motoresqT, 150);
-delay (4000);
+analogWrite(motoresqT, 250);
+delay (2000);
 
-analogWrite(motordirF, 150);
+
+// seguir reto
+analogWrite(motordirF, 250);
 analogWrite(motordirT, 0);
-analogWrite(motoresqF, 150);
+analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
 delay (3000);
 
 
-}
+
+// direita 
+analogWrite(motordirF, 0);
+analogWrite(motordirT, 250);
+analogWrite(motoresqF, 250);
+analogWrite(motoresqT, 0);
+delay (2000);
+
+// reto
+analogWrite(motordirF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motoresqT, 0);
+delay (3000);
+
+// direita
+analogWrite(motordirF, 0);
+analogWrite(motordirT, 250);
+analogWrite(motoresqF, 250);
+analogWrite(motoresqT, 0);
+delay (2000);
+
+// reto
+analogWrite(motordirF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motoresqT, 0);
+delay (4000);
+
+// direita 
+analogWrite(motordirF, 0);
+analogWrite(motordirT, 250);
+analogWrite(motoresqF, 250);
+analogWrite(motoresqT, 0);
+delay (2000);
+
+// reto
+analogWrite(motordirF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motoresqT, 0);
+delay (4000);
+
+// direita 
+analogWrite(motordirF, 0);
+analogWrite(motordirT, 250);
+analogWrite(motoresqF, 250);
+analogWrite(motoresqT, 0);
+delay (2000);
+
+// reto
+analogWrite(motordirF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motoresqT, 0);
+delay (2000);
