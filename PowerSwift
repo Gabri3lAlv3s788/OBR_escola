@@ -34,7 +34,7 @@ analogWrite(motordirF, 250);
 analogWrite(motordirT, 0);
 analogWrite (motoresqF, 250);
 analogWrite (motoresqT, 0);
-delay (4000);
+delay (3000);
 
 
 // virar à direita
@@ -42,7 +42,7 @@ analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
 analogWrite(motordirF, 0);
 analogWrite(motordirT, 250);
-delay (2000);
+delay (1230);
 
 
 // seguir reto
@@ -58,7 +58,7 @@ analogWrite(motordirF, 250);
 analogWrite(motordirT, 0);
 analogWrite(motoresqF, 0);
 analogWrite(motoresqT, 250);
-delay (2000);
+delay (1230);
 
 
 // seguir reto
@@ -75,7 +75,7 @@ analogWrite(motordirF, 0);
 analogWrite(motordirT, 250);
 analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
-delay (2000);
+delay (1230);
 
 // reto
 analogWrite(motordirF, 250);
@@ -89,35 +89,35 @@ analogWrite(motordirF, 0);
 analogWrite(motordirT, 250);
 analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
-delay (2000);
+delay (1230);
 
 // reto
 analogWrite(motordirF, 250);
 analogWrite(motordirT, 0);
 analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
-delay (4000);
+delay (3000);
 
 // direita 
 analogWrite(motordirF, 0);
 analogWrite(motordirT, 250);
 analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
-delay (2000);
+delay (1230);
 
 // reto
 analogWrite(motordirF, 250);
 analogWrite(motordirT, 0);
 analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
-delay (4000);
+delay (3000);
 
 // direita 
 analogWrite(motordirF, 0);
 analogWrite(motordirT, 250);
 analogWrite(motoresqF, 250);
 analogWrite(motoresqT, 0);
-delay (2000);
+delay (1230);
 
 // reto
 analogWrite(motordirF, 250);
