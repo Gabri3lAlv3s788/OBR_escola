@@ -6,12 +6,12 @@ byte motoresqT = 5;
 
 byte motoresqF = 6;
 
-int sensorEsq1 = 1;
-int sensorEsq2 = 2;
-int sensorDir1 = 3;
-int sensorDir2 = 4;
-int sensorEsqV = 5;
-int sensorDirV = 6;
+int sensorEsq1 = 2;
+int sensorEsq2 = 4;
+int sensorDir1 = 8;
+int sensorDir2 = 9;
+int sensorEsqV = A1;
+int sensorDirV = A3;
 
 
 
@@ -41,12 +41,12 @@ Serial.begin(9600);
 void loop() {
   // put your main code here, to run repeatedly:
 
-sensorEsq1 = digitalRead (1);
-sensorEsq2 = digitalRead (2);
-sensorDir1 = digitalRead (3);
-sensorDir2 = digitalRead (4);
-sensorEsqV = digitalRead (5);
-sensorDirV = digitalRead (6);  
+sensorEsq1 = digitalRead (2);
+sensorEsq2 = digitalRead (4);
+sensorDir1 = digitalRead (8);
+sensorDir2 = digitalRead (9);
+sensorEsqV = analogRead (A1);
+sensorDirV = analogRead (A3);  
 
 Serial.print ("PALMEIRAS");
 Serial.println (sensorEsq1);
