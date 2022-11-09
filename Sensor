@@ -1,0 +1,35 @@
+int sensorEsq1 = 1;
+int sensorEsq2 = 2;
+int sensorDir1 = 3;
+int sensorDir2 = 4;
+int sensorEsqV = 5;
+int sensorDirV = 6;
+
+
+void setup() {
+
+pinMode(sensorEsq1, INPUT_PULLUP);
+pinMode(sensorEsq2, INPUT_PULLUP);
+pinMode(sensorDir1, INPUT_PULLUP);
+pinMode(sensorDir2, INPUT_PULLUP);
+pinMode(sensorEsqV, INPUT_PULLUP);
+pinMode(sensorDirV, INPUT_PULLUP);
+Serial.begin(9600);
+
+
+}
+
+void loop() {
+
+sensorEsq1 = digitalRead (1);
+sensorEsq2 = digitalRead (2);
+sensorDir1 = digitalRead (3);
+sensorDir2 = digitalRead (4);
+sensorEsqV = digitalRead (5);
+sensorDirV = digitalRead (6);
+
+Serial.print ("PALMEIRAS");
+Serial.println (sensorEsq1);
+
+
+}
