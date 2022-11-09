@@ -1,4 +1,4 @@
-byte motordirF = 10; 
+byte motordirF = 10;
 
 byte motordirT = 11;
 
@@ -21,18 +21,18 @@ int sensorDirV = A3;
 void setup() {
 
 
-pinMode(motordirF,OUTPUT);
-pinMode(motordirT,OUTPUT);
-pinMode(motoresqT,OUTPUT);
-pinMode(motoresqF,OUTPUT);
+  pinMode(motordirF, OUTPUT);
+  pinMode(motordirT, OUTPUT);
+  pinMode(motoresqT, OUTPUT);
+  pinMode(motoresqF, OUTPUT);
 
-pinMode(sensorEsq1,INPUT_PULLUP);
-pinMode(sensorEsq2,INPUT_PULLUP);
-pinMode(sensorDir1,INPUT_PULLUP);
-pinMode(sensorDir2,INPUT_PULLUP);
-pinMode(sensorEsqV,INPUT_PULLUP);
-pinMode(sensorDirV,INPUT_PULLUP);
-Serial.begin(9600);
+  pinMode(sensorEsq1, INPUT_PULLUP);
+  pinMode(sensorEsq2, INPUT_PULLUP);
+  pinMode(sensorDir1, INPUT_PULLUP);
+  pinMode(sensorDir2, INPUT_PULLUP);
+  pinMode(sensorEsqV, INPUT_PULLUP);
+  pinMode(sensorDirV, INPUT_PULLUP);
+  Serial.begin(9600);
 
 
 }
@@ -41,24 +41,36 @@ Serial.begin(9600);
 void loop() {
   // put your main code here, to run repeatedly:
 
-sensorEsq1 = digitalRead (2);
-sensorEsq2 = digitalRead (4);
-sensorDir1 = digitalRead (8);
-sensorDir2 = digitalRead (9);
-sensorEsqV = analogRead (A1);
-sensorDirV = analogRead (A3);  
+  sensorEsq1 = digitalRead (2);
+  sensorEsq2 = digitalRead (4);
+  sensorDir1 = digitalRead (8);
+  sensorDir2 = digitalRead (9);
+  sensorEsqV = analogRead (A1);
+  sensorDirV = analogRead (A3);
 
-Serial.print ("PALMEIRAS");
-Serial.println (sensorEsq1);
+  Serial.print ("PALMEIRAS");
+  Serial.println (sensorEsq1);
 
 
 
-if ((sensorEsq1==0)&&(sensorDir2==1))
+
+
+  if ((sensorEsq1 == 0) && (sensorDir2 == 1))
+  {
+    analogWrite(motoresqF, 150);
+    analogWrite(motoresqT, 0);
+    analogWrite(motordirF, 150);
+    analogWrite(motordirF, 0);
+  }
+
+
+if ((sensorEsq1==1)&&(sensorDir2==0));
 
 {
 
-  
-}
-
+  analogWrite(motoresqF, 0);
+  analogWrite(motoresqT, 150);
+  analogWrite(motordirF, 0);
+  analogWrite(motordirF, 150);
 
 }
