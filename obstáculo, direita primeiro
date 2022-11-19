@@ -1,0 +1,93 @@
+byte motoresqT = 10; 
+byte motoresqF = 11;
+byte motordirF = 5;
+byte motordirT = 6;
+
+
+
+void setup() {
+  // put your setup code here, to run once:
+
+pinMode(motoresqT,OUTPUT);
+pinMode(motoresqF,OUTPUT);
+pinMode(motordirF,OUTPUT);
+pinMode(motordirT,OUTPUT);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  
+//frente
+analogWrite(motoresqT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motordirF, 250);
+
+delay(3000);
+
+ //direita
+analogWrite(motoresqT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motordirT, 250);
+analogWrite(motordirF, 0);
+
+delay(1230);
+
+//frente
+analogWrite(motoresqT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motordirF, 250);
+
+delay(1000);
+
+//esquerda
+analogWrite(motoresqT, 250);
+analogWrite(motoresqF, 0;
+analogWrite(motordirT, 0);
+analogWrite(motordirF, 250);
+
+delay(1230);
+
+//frente
+analogWrite(motoresqT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motordirF, 250);
+
+delay(1000);
+
+//esquerda
+analogWrite(motoresqT, 250);
+analogWrite(motoresqF, 0;
+analogWrite(motordirT, 0);
+analogWrite(motordirF, 250);
+
+delay(1230);
+
+//frente
+analogWrite(motoresqT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motordirF, 250);
+
+delay(1000);
+
+//direita
+analogWrite(motoresqT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motordirT, 250);
+analogWrite(motordirF, 0);
+
+delay(1230);
+
+//frente
+analogWrite(motoresqT, 0);
+analogWrite(motoresqF, 250);
+analogWrite(motordirT, 0);
+analogWrite(motordirF, 250);
+
+
+
+}
