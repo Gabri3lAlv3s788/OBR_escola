@@ -65,28 +65,7 @@ if((sensorEsq<=1000)&&(sensorDir>=500))
   analogWrite(motordirT, 250);
   analogWrite(motoresqF, 250);
   analogWrite(motoresqT, 0);
-}}
-
-////}
-//
-//if (sensorEsq==1023)
-//{
-//  analogWrite(motordirF, 0);
-//  analogWrite(motordirT, 250);
-//  analogWrite(motoresqF, 250);
-//  analogWrite(motoresqT, 0);
-//
-//
-//}
-//
-//if (sensorEsq<=1022)
-//
-//{
-//
-//  analogWrite(motordirF, 150);
-//  analogWrite(motordirT, 0);
-//  analogWrite(motoresqF, 0);
-//  analogWrite(motoresqT, 150);
-//}
+}
 
 }
+
