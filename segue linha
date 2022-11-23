@@ -46,7 +46,7 @@ void loop() {
   sensorEsq2 = analogRead(A1);
   sensorVD = analogRead(A5);
   sensorVE = analogRead(A4);
-  Serial.print(sensorEsq); Serial.print(" "); Serial.println(sensorDir);
+  Serial.print(sensorEsq); Serial.print(" "); Serial.println(sensorVD);
 
 
   if ((sensorEsq <= 350) && (sensorDir <= 200))
@@ -101,7 +101,7 @@ void loop() {
     analogWrite(motoresqT, 0);
     delay(250);
 
-  }
+  
     frente();
     delay(400);
     while (sensorEsq <= 200)
@@ -122,7 +122,8 @@ void loop() {
 
   }
 
-    if ((sensorEsq2 >= 350) && (sensorEsq >= 200) && (sensorDir <= 450) && (sensorDir2 <= 650))
+    
+  if ((sensorEsq2 >= 350) && (sensorEsq >= 200) && (sensorDir <= 450) && (sensorDir2 <= 650))
 
   {
 
@@ -138,7 +139,7 @@ void loop() {
     analogWrite(motoresqT, 0);
     delay(250);
 
-  }
+  
     frente();
     delay(400);
 
@@ -163,5 +164,26 @@ void loop() {
   }
  }
 
- if(
+ if((sensorEsq2 >= 350) && (sensorEsq >= 200) && (sensorDir >= 450) && (sensorDir2 >= 650))
+
+
+ {
+
+  //if((sensorVE>=650)&&(sensorVE<=750))
+  if ((sensorVD>=910)&&(sensorVD<=970))
+
+{
+
+      analogWrite(motordirF, 250);
+      analogWrite(motordirT, 250);
+      analogWrite(motoresqF, 250);
+      analogWrite(motoresqT, 250);
+      delay(1000000000000000000000000000000);
+
+}
+  
+}
+
+
+
 }
