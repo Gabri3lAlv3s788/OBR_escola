@@ -66,7 +66,7 @@ void loop() {
 
 if ((sensorEsq1==1)&&(sensorDir2==0));
 
-{
+
 
   analogWrite(motoresqF, 0);
   analogWrite(motoresqT, 150);
