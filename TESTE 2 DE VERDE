@@ -1,0 +1,140 @@
+int sensorEsq = A2;
+int sensorEsq2 = A0;
+int sensorDir2 = A3;
+int sensorDir = A1;
+int sensorVD = A5;
+int sensorVE = A4;
+byte motoresqT = 10;
+byte motoresqF = 11;
+byte motordirF = 5;
+byte motordirT = 6;
+
+void frente() {
+  analogWrite(motordirF, 200);
+  analogWrite(motordirT, 0);
+  analogWrite(motoresqF, 200);
+  analogWrite(motoresqT, 0);
+
+}
+
+
+
+
+void setup() {
+  // put your setup code here, to run once:
+
+  pinMode(sensorEsq, INPUT);
+  pinMode(sensorDir, INPUT);
+  pinMode(sensorDir2, INPUT);
+  pinMode(sensorEsq2, INPUT);
+  pinMode(sensorVD, INPUT);
+  pinMode(sensorVE, INPUT);
+  pinMode(motordirF, OUTPUT);
+  pinMode(motordirT, OUTPUT);
+  pinMode(motoresqT, OUTPUT);
+  pinMode(motoresqF, OUTPUT);
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+  sensorEsq = analogRead(A2);
+  sensorDir = analogRead(A1);
+  sensorDir2 = analogRead(A3);
+  sensorEsq2 = analogRead(A0);
+  sensorVD = analogRead(A5);
+  sensorVE = analogRead(A4);
+  Serial.print(sensorEsq); Serial.print(" "); Serial.println(sensorVD);
+
+
+  if ((sensorEsq <= 350) && (sensorDir <= 200))
+
+
+  { 
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 0);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 0);
+
+  }
+
+
+  if ((sensorEsq >= 550) && (sensorDir <= 200))
+
+  {
+
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 0);
+    analogWrite(motoresqF, 0);
+    analogWrite(motoresqT, 210);
+
+
+  }
+
+
+  if ((sensorEsq <= 350) && (sensorDir >= 500))
+
+
+  {
+
+
+    analogWrite(motordirF, 0);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 0);
+    delay(100);
+    
+    analogWrite(motordirF, 0);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 0);
+  }
+
+  if ((sensorEsq2 <= 350) && (sensorEsq <= 200) && (sensorDir >= 450) && (sensorDir2 >= 650))
+
+  {
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 0);
+    analogWrite(motoresqF, 0);
+    analogWrite(motoresqT, 210);
+    delay(100);
+    
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 210);
+
+  while(1)
+  {
+    sensorVD = analogRead(A5);
+    sensorVE = analogRead(A4);
+    Serial.print(sensorVE); Serial.print(" "); Serial.println(sensorVD);
+  }
+  
+  }
+    
+  if ((sensorEsq2 >= 350) && (sensorEsq >= 200) && (sensorDir <= 450) && (sensorDir2 <= 650))
+
+  {
+
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 0);
+    analogWrite(motoresqF, 0);
+    analogWrite(motoresqT, 210);
+    delay(100);
+    
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 210);
+    while(1)
+  {
+    sensorVD = analogRead(A5);
+    sensorVE = analogRead(A4);
+    Serial.print(sensorVE); Serial.print(" "); Serial.println(sensorVD);
+  }
+       
+    }
+  }
