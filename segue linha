@@ -1,7 +1,7 @@
 int sensorEsq = A2;
-int sensorDir = A0;
+int sensorEsq2 = A0;
 int sensorDir2 = A3;
-int sensorEsq2 = A1;
+int sensorDir = A1;
 int sensorVD = A5;
 int sensorVE = A4;
 byte motoresqT = 10;
@@ -10,9 +10,9 @@ byte motordirF = 5;
 byte motordirT = 6;
 
 void frente() {
-  analogWrite(motordirF, 250);
+  analogWrite(motordirF, 200);
   analogWrite(motordirT, 0);
-  analogWrite(motoresqF, 250);
+  analogWrite(motoresqF, 200);
   analogWrite(motoresqT, 0);
 
 }
@@ -41,9 +41,9 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   sensorEsq = analogRead(A2);
-  sensorDir = analogRead(A0);
+  sensorDir = analogRead(A1);
   sensorDir2 = analogRead(A3);
-  sensorEsq2 = analogRead(A1);
+  sensorEsq2 = analogRead(A0);
   sensorVD = analogRead(A5);
   sensorVE = analogRead(A4);
   Serial.print(sensorEsq); Serial.print(" "); Serial.println(sensorVD);
@@ -52,10 +52,10 @@ void loop() {
   if ((sensorEsq <= 350) && (sensorDir <= 200))
 
 
-  {
-    analogWrite(motordirF, 250);
+  { 
+    analogWrite(motordirF, 210);
     analogWrite(motordirT, 0);
-    analogWrite(motoresqF, 250);
+    analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 0);
 
   }
@@ -65,10 +65,10 @@ void loop() {
 
   {
 
-    analogWrite(motordirF, 250);
+    analogWrite(motordirF, 210);
     analogWrite(motordirT, 0);
     analogWrite(motoresqF, 0);
-    analogWrite(motoresqT, 250);
+    analogWrite(motoresqT, 210);
 
 
   }
@@ -80,8 +80,8 @@ void loop() {
   {
 
     analogWrite(motordirF, 0);
-    analogWrite(motordirT, 250);
-    analogWrite(motoresqF, 250);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 0);
   }
 
@@ -89,21 +89,21 @@ void loop() {
 
   {
 
-    analogWrite(motordirF, 250);
-    analogWrite(motordirT, 250);
-    analogWrite(motoresqF, 250);
-    analogWrite(motoresqT, 250);
-    delay(250);
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 210);
+    delay(200);
 
-    analogWrite(motordirF, 250);
+    analogWrite(motordirF, 210);
     analogWrite(motordirT, 0);
-    analogWrite(motoresqF, 250);
+    analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 0);
-    delay(250);
+    delay(200);
 
   
     frente();
-    delay(400);
+    delay(220);
     while (sensorEsq <= 200)
     {
 
@@ -113,8 +113,8 @@ void loop() {
       sensorEsq2 = analogRead(A1);
 
       analogWrite(motordirF, 0);
-      analogWrite(motordirT, 250);
-      analogWrite(motoresqF, 250);
+      analogWrite(motordirT, 210);
+      analogWrite(motoresqF, 210);
       analogWrite(motoresqT, 0);
 
 
@@ -127,21 +127,21 @@ void loop() {
 
   {
 
-    analogWrite(motordirF, 250);
-    analogWrite(motordirT, 250);
-    analogWrite(motoresqF, 250);
-    analogWrite(motoresqT, 250);
-    delay(250);
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 210);
+    delay(200);
 
-    analogWrite(motordirF, 250);
+    analogWrite(motordirF, 210);
     analogWrite(motordirT, 0);
-    analogWrite(motoresqF, 250);
+    analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 0);
-    delay(250);
+    delay(200);
 
   
     frente();
-    delay(400);
+    delay(220);
 
       sensorEsq = analogRead(A2);
       sensorDir = analogRead(A0);
@@ -155,10 +155,10 @@ void loop() {
       sensorDir2 = analogRead(A3);
       sensorEsq2 = analogRead(A1);
 
-      analogWrite(motordirF, 250);
+      analogWrite(motordirF, 210);
       analogWrite(motordirT, 0);
       analogWrite(motoresqF, 0);
-      analogWrite(motoresqT, 250);
+      analogWrite(motoresqT, 210);
 
 
   }
@@ -174,14 +174,18 @@ void loop() {
 
 {
 
-      analogWrite(motordirF, 250);
-      analogWrite(motordirT, 250);
-      analogWrite(motoresqF, 250);
-      analogWrite(motoresqT, 250);
+      analogWrite(motordirF, 210);
+      analogWrite(motordirT, 210);
+      analogWrite(motoresqF, 210);
+      analogWrite(motoresqT, 210);
       delay(1000000000000000000000000000000);
 
 }
   
+}
+
+
+
 }
 
 
