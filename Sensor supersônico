@@ -1,0 +1,24 @@
+#define PinoTrigger 11   //O Trigger emite o pulso
+#define PinoEcho 12      //O Echo recebe o pulso
+int duracao = 0;  //variaveis para calculo da distancia
+int distancia = 0; // variavel para calcjulo da distancia
+
+void setup () {
+
+pinMode(PinoTrigger,OUTPUT); // Trigger configurado como saída 
+pinMode(PinoEcho,INPUT);   // Echo configurado como entrada
+}
+
+void loop () {
+
+digitalWrite(PinoTrigger, HIGH);
+delayMicroseconds(10);
+digitalWrite(PinoTrigger,LOW);
+  
+duracao = pulseIn(PinoEcho, HIGH); //Armazena o valor lido
+distancia = duracao*0.017175;
+Serial.print(distancia);
+Serial.println("cm");  
+delay(100);
+
+}
