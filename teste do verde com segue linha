@@ -174,7 +174,7 @@ void loop() {
     analogWrite(motordirT, 0);
     analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 0);
-    delay(200);
+    delay(500);
 
     if (VE == true)
     {
@@ -183,16 +183,45 @@ void loop() {
       analogWrite(motoresqF, 0);
       analogWrite(motoresqT, 210);
       delay(700);
-
+      sensorEsq = analogRead(A2);
+      while (sensorEsq <= 650)
+      {
+        VE = false;
+        sensorEsq = analogRead(A2);
+        analogWrite(motordirF, 210);
+        analogWrite(motordirT, 0);
+        analogWrite(motoresqF, 0);
+        analogWrite(motoresqT, 210);
+      }
     }
 
     if (VD == true)
     {
+
       analogWrite(motordirF, 0);
       analogWrite(motordirT, 210);
       analogWrite(motoresqF, 210);
       analogWrite(motoresqT, 0);
       delay(700);
+      sensorDir = analogRead(A1);
+      while (sensorDir <= 500)
+      {
+        VD = false;
+        sensorDir = analogRead(A1);
+        analogWrite(motordirF, 0);
+        analogWrite(motordirT, 210);
+        analogWrite(motoresqF, 210);
+        analogWrite(motoresqT, 0);
+      }
+    }
+
+  }
+
+
+
+}
+
+
     }
 
 }
