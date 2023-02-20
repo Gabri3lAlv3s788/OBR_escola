@@ -99,23 +99,24 @@ void loop() {
 //T esquerda
  if ((sensorEsq >= 650) && (sensorEsq2 >= 650) && (sensorDir2 <= 500))
   {
-    if((sensorVD>=220)&&(sensorDir>=650))
+    if(sensorVE>=290)
     {
     analogWrite(motordirF, 210);
-    analogWrite(motordirT,0);
+    analogWrite(motordirT, 0);
     analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 0);
     delay(250);
     
-    analogWrite(motordirF, 0);
-    analogWrite(motordirT,210);
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 0);
     analogWrite(motoresqF, 0);
     analogWrite(motoresqT, 210);
     delay(700);
-      sensorEsq = analogRead(A2);
-      while (sensorEsq <= 650)      {
+      sensorDir =analogRead(A1);
+      while (sensorDir <= 650)      
+      {
 
-        sensorEsq = analogRead(A2);
+        sensorDir = analogRead(A1);
         analogWrite(motordirF, 210);
         analogWrite(motordirT, 0);
         analogWrite(motoresqF, 0);
@@ -129,18 +130,56 @@ void loop() {
     analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 0);
     delay(200);
-
+ }
+}
+atualiza();
  //T direita
- if ((sensorDir>= 650) && (sensorDir2 >= 650) && (sensorEsq2 <= 500))
+ if ((sensorDir2 >= 650) &&(sensorDir>=650) && (sensorEsq2 <= 650))
   {
+
+    
+    if(sensorVD>=200)
+    {
     analogWrite(motordirF, 210);
+    analogWrite(motordirT, 0);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 0);
+    delay(250);
+
+    analogWrite(motordirF, 0);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 0);
+    delay(700);
+      sensorEsq = analogRead(A2);
+      while (sensorEsq <= 650)      
+      {
+
+        sensorEsq = analogRead(A2);
+        analogWrite(motordirF, 0);
+        analogWrite(motordirT, 210);
+        analogWrite(motoresqF, 210);
+        analogWrite(motoresqT, 0);
+
+      }
+    }
+
+     analogWrite(motordirF, 210);
     analogWrite(motordirT,0);
     analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 0);
     delay(200);
-
-
   }
+        
+
+      
+  
+    
+
+
+
+
+  
   //verde esquerda
 
   if ((sensorEsq >= 650) && (sensorEsq2 >= 650) && (sensorDir2 >= 500))
@@ -172,10 +211,10 @@ void loop() {
         analogWrite(motoresqF, 0);
         analogWrite(motoresqT, 210);
         verde == 0;
-      }
 }
-
-  }  }
+ }
+  }  
+ 
 
 //verde direita
 
@@ -208,10 +247,23 @@ if ((sensorDir >= 650) && (sensorDir2 >= 650) && (sensorEsq2 >= 500))
         analogWrite(motoresqF, 210);
         analogWrite(motoresqT, 0);
         verde == 0;
-      }
 }
+ }
+  }
+   }
 
-  }  }}
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
