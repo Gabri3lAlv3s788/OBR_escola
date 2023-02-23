@@ -42,7 +42,7 @@ void setup() {
   pinMode(motordirT, OUTPUT);
   pinMode(motoresqT, OUTPUT);
   pinMode(motoresqF, OUTPUT);
-  //Serial.begin(9600);
+  Serial.begin(9600);
 
 }
 
@@ -57,6 +57,48 @@ void loop() {
   sensorVE = analogRead(A4);
   //Serial.print(sensorEsq); Serial.print(" "); Serial.println(sensorVD);
 
+ 
+  //verde direita
+
+if ((sensorDir >= 500) && (sensorDir2 >= 500) && (sensorEsq2 >= 500))
+  {
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 210);
+    delay(700);
+           
+    atualiza();
+
+Serial.println("gabriel gay aqui direita ");
+    int verde = 1;
+    if ((sensorVD >= 250) && (verde == 1))
+    {
+      analogWrite(motordirF, 210);
+      analogWrite(motordirT, 0);
+      analogWrite(motoresqF, 210);
+      analogWrite(motoresqT, 0);
+      delay(400);
+
+      analogWrite(motordirF, 0);
+      analogWrite(motordirT, 210);
+      analogWrite(motoresqF, 210);
+      analogWrite(motoresqT, 0);
+      delay(800);
+      
+      sensorEsq = analogRead(A2);
+      while (sensorEsq <= 250)      {
+
+        sensorEsq = analogRead(A2);
+        analogWrite(motordirF, 0);
+        analogWrite(motordirT, 210);
+        analogWrite(motoresqF, 210);
+        analogWrite(motoresqT, 0);
+        verde == 0;
+}
+ }
+  }
+  
   //T esquerda
  if ((sensorEsq >= 650) && (sensorEsq2 >= 650) && (sensorDir2 <= 500))
    {
@@ -164,7 +206,7 @@ atualiza();
     
 
     atualiza();
-
+Serial.print("gabriel é viado");
 
     int verde = 1;
     if ((sensorVE >= 250) && (verde == 1))
@@ -198,45 +240,6 @@ atualiza();
   }  
  
 
-//verde direita
-
-if ((sensorDir >= 650) && (sensorDir2 >= 650) && (sensorEsq2 >= 500))
-  {
-    analogWrite(motordirF, 210);
-    analogWrite(motordirT, 210);
-    analogWrite(motoresqF, 210);
-    analogWrite(motoresqT, 210);
-    delay(700);
-      analogWrite(motordirF, 210);
-      analogWrite(motordirT, 0);
-      analogWrite(motoresqF, 210);
-      analogWrite(motoresqT, 0);
-      delay(10);
-      
-    atualiza();
-
-
-    int verde = 1;
-    if ((sensorVD >= 250) && (verde == 1))
-    {
-      analogWrite(motordirF, 210);
-      analogWrite(motordirT, 0);
-      analogWrite(motoresqF, 210);
-      analogWrite(motoresqT, 0);
-      delay(400);
-
-      sensorDir = analogRead(A1);
-      while (sensorDir <= 650)      {
-
-        sensorDir = analogRead(A1);
-        analogWrite(motordirF, 0);
-        analogWrite(motordirT, 210);
-        analogWrite(motoresqF, 210);
-        analogWrite(motoresqT, 0);
-        verde == 0;
-}
- }
-  }
 
 
   if ((sensorEsq <= 350) && (sensorDir <= 200))
