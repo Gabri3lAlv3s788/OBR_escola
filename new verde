@@ -57,20 +57,20 @@ void loop() {
   sensorVE = analogRead(A4);
   //Serial.print(sensorEsq); Serial.print(" "); Serial.println(sensorVD);
 
- 
+
   //verde direita
 
-if ((sensorDir >= 500) && (sensorDir2 >= 500) && (sensorEsq2 >= 500))
+  if ((sensorDir >= 500) && (sensorDir2 >= 500) && (sensorEsq2 >= 500))
   {
     analogWrite(motordirF, 210);
     analogWrite(motordirT, 210);
     analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 210);
     delay(700);
-           
+
     atualiza();
 
-Serial.println("gabriel gay aqui direita ");
+    Serial.println("gabriel gay aqui direita ");
     int verde = 1;
     if ((sensorVD >= 250) && (verde == 1))
     {
@@ -85,7 +85,7 @@ Serial.println("gabriel gay aqui direita ");
       analogWrite(motoresqF, 210);
       analogWrite(motoresqT, 0);
       delay(800);
-      
+
       sensorEsq = analogRead(A2);
       while (sensorEsq <= 250)      {
 
@@ -95,21 +95,21 @@ Serial.println("gabriel gay aqui direita ");
         analogWrite(motoresqF, 210);
         analogWrite(motoresqT, 0);
         verde == 0;
-}
- }
+      }
+    }
   }
-  
+
   //T esquerda
- if ((sensorEsq >= 650) && (sensorEsq2 >= 650) && (sensorDir2 <= 500))
-   {
+  if ((sensorEsq >= 400) && (sensorEsq2 >= 400) && (sensorDir2 <= 400))
+  {
     analogWrite(motordirF, 210);
     analogWrite(motordirT, 210);
     analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 210);
     delay(700);
-    
-   
-    
+
+
+
 
     atualiza();
 
@@ -129,69 +129,68 @@ Serial.println("gabriel gay aqui direita ");
       analogWrite(motoresqT, 210);
       delay(800);
 
-      
+
 
       sensorDir = analogRead(A1);
-      while (sensorDir <= 250)      
+      while (sensorDir <= 250)
       {
-        
+
         sensorDir = analogRead(A1);
         analogWrite(motordirF, 210);
         analogWrite(motordirT, 0);
         analogWrite(motoresqF, 0);
         analogWrite(motoresqT, 210);
+       
         verde == 0;
+      
 }
- }
-  } 
-atualiza();
- //T direita
- if ((sensorDir2 >= 650) &&(sensorDir>=650) && (sensorEsq2 <= 650))
+ }     
+  }
+  atualiza();
+  //T direita
+  if ((sensorDir2 >= 400) && (sensorDir >= 400) && (sensorEsq2 <= 400))
   {
-
-    
-    if(sensorVD>=200)
-    {
     analogWrite(motordirF, 210);
-    analogWrite(motordirT, 0);
-    analogWrite(motoresqF, 210);
-    analogWrite(motoresqT, 0);
-    delay(400);
-
-    analogWrite(motordirF, 0);
     analogWrite(motordirT, 210);
     analogWrite(motoresqF, 210);
-    analogWrite(motoresqT, 0);
+    analogWrite(motoresqT, 210);
     delay(700);
+
+    atualiza();
+
+    Serial.println("gabriel gay aqui direita2 ");
+    int verde = 1;
+    if ((sensorVD >= 250) && (verde == 1))
+    {
+      analogWrite(motordirF, 210);
+      analogWrite(motordirT, 0);
+      analogWrite(motoresqF, 210);
+      analogWrite(motoresqT, 0);
+      delay(400);
+
+      analogWrite(motordirF, 0);
+      analogWrite(motordirT, 210);
+      analogWrite(motoresqF, 210);
+      analogWrite(motoresqT, 0);
+      delay(800);
+
       sensorEsq = analogRead(A2);
-      while (sensorEsq <= 250)      
-      {
+      while (sensorEsq <= 250)      {
 
         sensorEsq = analogRead(A2);
         analogWrite(motordirF, 0);
         analogWrite(motordirT, 210);
         analogWrite(motoresqF, 210);
         analogWrite(motoresqT, 0);
-
+        verde == 0;
       }
     }
-
-    analogWrite(motordirF, 210);
-    analogWrite(motordirT,0);
-    analogWrite(motoresqF, 210);
-    analogWrite(motoresqT, 0);
-    delay(200);
   }
-        
-
-      
-  
-    
 
 
 
 
-  
+
   //verde esquerda
 
   if ((sensorEsq >= 400) && (sensorEsq2 >= 400) && (sensorDir2 >= 400))
@@ -201,12 +200,12 @@ atualiza();
     analogWrite(motoresqF, 210);
     analogWrite(motoresqT, 210);
     delay(700);
-    
-   
-    
+
+
+
 
     atualiza();
-Serial.print("gabriel é viado");
+    Serial.print("gabriel é viado");
 
     int verde = 1;
     if ((sensorVE >= 250) && (verde == 1))
@@ -223,22 +222,58 @@ Serial.print("gabriel é viado");
       analogWrite(motoresqT, 210);
       delay(800);
 
-      
+
 
       sensorDir = analogRead(A1);
-      while (sensorDir <= 250)      
+      while (sensorDir <= 250)
       {
-        
+
         sensorDir = analogRead(A1);
         analogWrite(motordirF, 210);
         analogWrite(motordirT, 0);
         analogWrite(motoresqF, 0);
         analogWrite(motoresqT, 210);
         verde == 0;
-}
- }
-  }  
- 
+      }
+    }
+  }
+
+  if ((sensorEsq2 >= 300) && (sensorEsq >= 300) && (sensorDir >= 300) && (sensorDir2 >= 300))
+  {
+    analogWrite(motordirF, 210);
+    analogWrite(motordirT, 210);
+    analogWrite(motoresqF, 210);
+    analogWrite(motoresqT, 210);
+    delay(7000000000000000000000);
+
+    atualiza();
+    if ((sensorVD >= 200) && (sensorVE >= 250))
+    {
+      analogWrite(motordirF, 210);
+      analogWrite(motordirT, 210);
+      analogWrite(motoresqF, 210);
+      analogWrite(motoresqT, 210);
+      delay(300000000000000000000000000);
+
+      analogWrite(motordirF, 210);
+      analogWrite(motordirT, 0);
+      analogWrite(motoresqF, 0);
+      analogWrite(motoresqT, 210);
+      delay(800);
+
+      sensorDir = analogRead(A1);
+      while (sensorDir <= 250)
+      {
+
+        sensorDir = analogRead(A1);
+        analogWrite(motordirF, 210);
+        analogWrite(motordirT, 0);
+        analogWrite(motoresqF, 0);
+        analogWrite(motoresqT, 210);
+
+      }
+    }
+  }
 
 
 
@@ -281,7 +316,6 @@ Serial.print("gabriel é viado");
 
 
 
-   
 
 
 
@@ -294,7 +328,6 @@ Serial.print("gabriel é viado");
 
 
 
-  
 
 
 
@@ -303,131 +336,98 @@ Serial.print("gabriel é viado");
 
 
 
-//  if ((sensorEsq2 <= 350) && (sensorEsq <= 200) && (sensorDir >= 450) && (sensorDir2 >= 650))
-//  {
-//    analogWrite(motordirF, 210);
-//    analogWrite(motordirT, 210);
-//    analogWrite(motoresqF, 210);
-//    analogWrite(motoresqT, 210);
-//    delay(600);
-//    sensorVD = analogRead(A5);
-//    if  ((sensorVD >= 215) || (sensorEsq2 <= 350))
-//    {
-//      frente();
-//      delay(400);
-//      if  (sensorVD >= 215)
-//      {
-//        sensorEsq = analogRead(A2);
-//        analogWrite(motordirF, 0);
-//        analogWrite(motordirT, 210);
-//        analogWrite(motoresqF, 210);
-//        analogWrite(motoresqT, 0);
-//        delay(700);
-//      }
-//      while (sensorEsq <= 200)
-//      {
-//        sensorEsq = analogRead(A2);
-//
-//        analogWrite(motordirF, 0);
-//        analogWrite(motordirT, 210);
-//        analogWrite(motoresqF, 210);
-//        analogWrite(motoresqT, 0);
-//      }
-//    }
-//  }
-
-//
-//if((sensorEsq>=650)&&(sensorEsq2>=650)&&(sensorDir<=500)&&(sensorDir2<=500))
-//
-//{
-//int verde = 1;
-//if((sensorVE>=350)&&(verde == 1))
-//{
-//      analogWrite(motordirF, 210);
-//      analogWrite(motordirT, 0);
-//      analogWrite(motoresqF, 210);
-//      analogWrite(motoresqT, 0);
-//      delay(350);
-//      sensorDir2 = analogRead(A3);
-//      while(sensorDir2>=650);
-//      {
-//       sensorDir2 = analogRead(A3);
-//      analogWrite(motordirF, 0);
-//      analogWrite(motordirT, 210);
-//      analogWrite(motoresqF, 210);
-//      analogWrite(motoresqT, 0);
-//       verde==0;
-//      }
-//
 
 
-//  if ((sensorEsq2 >= 350) && (sensorEsq >= 200) && (sensorDir <= 450) && (sensorDir2 <= 650))
-//  {
-//    analogWrite(motordirF, 210);
-//    analogWrite(motordirT, 210);
-//    analogWrite(motoresqF, 210);
-//    analogWrite(motoresqT, 210);
-//    delay(200);
-//    sensorVE = analogRead(A4);
-//    sensorDir2 = analogRead(A3);
-//    if  ((sensorVE >= 350) || (sensorDir2 <= 650))
-//    {
-//      frente();
-//      delay(400);
-//      sensorVE = analogRead(A4);
-//      if (sensorVE >= 350)
-//      {
-//        analogWrite(motordirF, 210);
-//        analogWrite(motordirT, 0);
-//        analogWrite(motoresqF, 0);
-//        analogWrite(motoresqT, 210);
-//        delay(650);
-//      }
-//      while (sensorDir <= 200)
-//      {
-//        sensorDir = analogRead(A1);
-//        analogWrite(motordirF, 210);
-//        analogWrite(motordirT, 0);
-//        analogWrite(motoresqF, 0);
-//        analogWrite(motoresqT, 210);
-//      }
-//    }
-//  }
-//
-  if ((sensorEsq2 >= 400) && (sensorEsq >= 400) && (sensorDir >= 400) && (sensorDir2 >= 400))
-  {
-    analogWrite(motordirF, 210);
-    analogWrite(motordirT, 210);
-    analogWrite(motoresqF, 210);
-    analogWrite(motoresqT, 210);
-    delay(700);
-    
-     atualiza();
-    if ((sensorVD >= 200)&&(sensorVE >= 250))
-    {
-    analogWrite(motordirF, 210);
-    analogWrite(motordirT, 0);
-    analogWrite(motoresqF, 210);
-    analogWrite(motoresqT, 0);
-    delay(200);
-    
-      analogWrite(motordirF, 210);
-      analogWrite(motordirT, 0);
-      analogWrite(motoresqF, 0);
-      analogWrite(motoresqT, 210);
-      delay(800);
+  //  if ((sensorEsq2 <= 350) && (sensorEsq <= 200) && (sensorDir >= 450) && (sensorDir2 >= 650))
+  //  {
+  //    analogWrite(motordirF, 210);
+  //    analogWrite(motordirT, 210);
+  //    analogWrite(motoresqF, 210);
+  //    analogWrite(motoresqT, 210);
+  //    delay(600);
+  //    sensorVD = analogRead(A5);
+  //    if  ((sensorVD >= 215) || (sensorEsq2 <= 350))
+  //    {
+  //      frente();
+  //      delay(400);
+  //      if  (sensorVD >= 215)
+  //      {
+  //        sensorEsq = analogRead(A2);
+  //        analogWrite(motordirF, 0);
+  //        analogWrite(motordirT, 210);
+  //        analogWrite(motoresqF, 210);
+  //        analogWrite(motoresqT, 0);
+  //        delay(700);
+  //      }
+  //      while (sensorEsq <= 200)
+  //      {
+  //        sensorEsq = analogRead(A2);
+  //
+  //        analogWrite(motordirF, 0);
+  //        analogWrite(motordirT, 210);
+  //        analogWrite(motoresqF, 210);
+  //        analogWrite(motoresqT, 0);
+  //      }
+  //    }
+  //  }
 
-      sensorDir = analogRead(A1);
-      while (sensorDir <= 250)      
-      {
-        
-        sensorDir = analogRead(A1);
-        analogWrite(motordirF, 210);
-        analogWrite(motordirT, 0);
-        analogWrite(motoresqF, 0);
-        analogWrite(motoresqT, 210);
-        
+  //
+  //if((sensorEsq>=650)&&(sensorEsq2>=650)&&(sensorDir<=500)&&(sensorDir2<=500))
+  //
+  //{
+  //int verde = 1;
+  //if((sensorVE>=350)&&(verde == 1))
+  //{
+  //      analogWrite(motordirF, 210);
+  //      analogWrite(motordirT, 0);
+  //      analogWrite(motoresqF, 210);
+  //      analogWrite(motoresqT, 0);
+  //      delay(350);
+  //      sensorDir2 = analogRead(A3);
+  //      while(sensorDir2>=650);
+  //      {
+  //       sensorDir2 = analogRead(A3);
+  //      analogWrite(motordirF, 0);
+  //      analogWrite(motordirT, 210);
+  //      analogWrite(motoresqF, 210);
+  //      analogWrite(motoresqT, 0);
+  //       verde==0;
+  //      }
+  //
+
+
+  //  if ((sensorEsq2 >= 350) && (sensorEsq >= 200) && (sensorDir <= 450) && (sensorDir2 <= 650))
+  //  {
+  //    analogWrite(motordirF, 210);
+  //    analogWrite(motordirT, 210);
+  //    analogWrite(motoresqF, 210);
+  //    analogWrite(motoresqT, 210);
+  //    delay(200);
+  //    sensorVE = analogRead(A4);
+  //    sensorDir2 = analogRead(A3);
+  //    if  ((sensorVE >= 350) || (sensorDir2 <= 650))
+  //    {
+  //      frente();
+  //      delay(400);
+  //      sensorVE = analogRead(A4);
+  //      if (sensorVE >= 350)
+  //      {
+  //        analogWrite(motordirF, 210);
+  //        analogWrite(motordirT, 0);
+  //        analogWrite(motoresqF, 0);
+  //        analogWrite(motoresqT, 210);
+  //        delay(650);
+  //      }
+  //      while (sensorDir <= 200)
+  //      {
+  //        sensorDir = analogRead(A1);
+  //        analogWrite(motordirF, 210);
+  //        analogWrite(motordirT, 0);
+  //        analogWrite(motoresqF, 0);
+  //        analogWrite(motoresqT, 210);
+  //      }
+  //    }
+  //  }
+  //
+
 }
- }
-  }
-   }
