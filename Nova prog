@@ -1,10 +1,10 @@
 int S_FE = ; // Sensor frontal esquerda
 int S_FC = ; // Sensor frontal centro
 int S_FD = ; // Sensor frontal direita
-int S_TE1 = ; //Sensor traseiro  esquerda
+int S_TE = ; //Sensor traseiro  esquerda
 int S_TEE = ; //Sensor traseiro extremo esquerda
 int S_TC = ; // Sensor traseiro centro
-int S_TD1 = ; //Sensor traseiro direita
+int S_TD = ; //Sensor traseiro direita
 int S_TED = ; //Sensor traseiro extrema direita
 byte mfd = ; // Motor frontal direita
 byte mfe = ; // Motor frontal esquerda
@@ -13,7 +13,7 @@ byte mte = ; // Motor traseiro esquerda
 
 
 
-void frente()
+void frente()//Função de ir à frente
 {
   analogWrite(mfd, 200);
   analogWrite(mtd, 0);
@@ -21,7 +21,7 @@ void frente()
   analogWrite(mte, 0);
 }
 
-void direita()
+void direita()//Função de ajuste à direita
 {
   analogWrite(mfd 0);
   analogWrite(mtd, 200);
@@ -29,22 +29,32 @@ void direita()
   analogWrite(mte, 0);
 }
 
-void esquerda()
+void esquerda()//Função de ajuste à esquerda
 {
   analogWrite(mfd, 200);
   analogWrite(mtd, 0);
   analogWrite(mfe, 0);
   analogWrite(mte, 200);
 }
-
-void atualiza()
+void parar()//Função de parar o robô
 {
-  sensorEsq = analogRead(A2);
-  sensorDir = analogRead(A1);
-  sensorDir2 = analogRead(A3);
-  sensorEsq2 = analogRead(A0);
-  sensorVD = analogRead(A5);
-  sensorVE = analogRead(A4); 
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 0);
+}
+
+void atualiza()//Função de atualização dos sensores
+{
+
+S_FE = analogRead();
+S_FC = analogRead();
+S_FD = analogRead();
+S_TE = analogRead();
+S_TEE = analogRead();
+S_TC = analogRead();
+S_TD = analogRead();
+S_TED = analogRead();
 }
 
 
@@ -57,10 +67,10 @@ pinMode(mte, OUTPUT);
 pinMode(S_FE, INPUT);
 pinMode(S_FC, INPUT);
 pinMode(S_FD, INPUT);
-pinMode(S_TE1, INPUT);
+pinMode(S_TE, INPUT);
 pinMode(S_TEE, INPUT);
 pinMode(S_TC, INPUT);
-pinMode(S_TD1, INPUT);
+pinMode(S_TD, INPUT);
 pinMode(S_TED, INPUT);
 
 
@@ -68,8 +78,68 @@ pinMode(S_TED, INPUT);
 
 void loop() {
 
-,
+atualiza();
 
 
+//Segue linha
+ if ((S_TE == 0) && (S_TD == 0))
+  { 
+    frente();
+  }
+  if ((S_TE == 1) && (S_TD == 0))
+  {
+      direita();
+  }
 
-}
+
+  if ((S_TE == 0) && (S_TD == 1))
+  {
+      esquerda();
+  }
+
+//90 direita
+if ((S_TEE == 0) && (S_TE == 0) && (S_TD == 1) && (S_TED == 1))
+
+  {
+
+    parar();  
+    delay(200);
+
+    frente();
+    delay(200);
+
+  
+    frente();
+    delay(220);
+    while (S_TE == 0)
+    {
+
+    atualiza();
+
+    direita();
+    }
+//90 esquerda
+  if ((S_TEE == 1) && (S_TE == 1) && (S_TD == 0) && (S_TED == 0))
+
+  {
+
+    parar();
+    delay(200);
+
+    frente();
+    delay(200);
+
+  
+    frente();
+    delay(220);
+
+    atualiza();
+    while (S_TD == 0)
+    {
+
+    atualiza();
+
+    esquerda();
+  }
+ }
+  }
