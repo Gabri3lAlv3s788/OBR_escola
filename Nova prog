@@ -6,6 +6,10 @@ int S_TEE = ; //Sensor traseiro extremo esquerda
 int S_TC = ; // Sensor traseiro centro
 int S_TD = ; //Sensor traseiro direita
 int S_TED = ; //Sensor traseiro extrema direita
+int S_VEE = ; //Sensor verde extrema esquerda
+int S_VE = ; // Sensor verde esquerda
+int S_VED = ; //Sensor verde extrema direita
+int V_VD = ; // Sensor verde direita
 byte mfd = ; // Motor frontal direita
 byte mfe = ; // Motor frontal esquerda
 byte mtd = ; // Motor traseiro direita
@@ -13,7 +17,7 @@ byte mte = ; // Motor traseiro esquerda
 
 
 
-void frente()//Função de ir à frente
+void frente() //Função de ir à frente
 {
   analogWrite(mfd, 200);
   analogWrite(mtd, 0);
@@ -21,7 +25,7 @@ void frente()//Função de ir à frente
   analogWrite(mte, 0);
 }
 
-void direita()//Função de ajuste à direita
+void direita() //Função de ajuste à direita
 {
   analogWrite(mfd 0);
   analogWrite(mtd, 200);
@@ -29,14 +33,14 @@ void direita()//Função de ajuste à direita
   analogWrite(mte, 0);
 }
 
-void esquerda()//Função de ajuste à esquerda
+void esquerda() //Função de ajuste à esquerda
 {
   analogWrite(mfd, 200);
   analogWrite(mtd, 0);
   analogWrite(mfe, 0);
   analogWrite(mte, 200);
 }
-void parar()//Função de parar o robô
+void parar() //Função de parar o robô
 {
   analogWrite(mfd, 0);
   analogWrite(mtd, 0);
@@ -44,17 +48,21 @@ void parar()//Função de parar o robô
   analogWrite(mte, 0);
 }
 
-void atualiza()//Função de atualização dos sensores
+void atualiza() //Função de atualização dos sensores
 {
 
-S_FE = analogRead();
-S_FC = analogRead();
-S_FD = analogRead();
-S_TE = analogRead();
-S_TEE = analogRead();
-S_TC = analogRead();
-S_TD = analogRead();
-S_TED = analogRead();
+S_FE = digitalRead();
+S_FC = digitalRead();
+S_FD = digitalRead();
+S_TE = digitalRead();
+S_TEE = digitalRead();
+S_TC = digitalRead();
+S_TD = digitalRead();
+S_TED = digitalRead();
+S_VEE = analogRead();
+S_VE = analogRead();
+S_VED = analogRead();
+S_VD = analogRead();
 }
 
 
@@ -72,6 +80,10 @@ pinMode(S_TEE, INPUT);
 pinMode(S_TC, INPUT);
 pinMode(S_TD, INPUT);
 pinMode(S_TED, INPUT);
+pinMode(S_VED, INPUT);
+pinMode(S_VE, INPUT);
+pinMode(S_VED, INPUT);
+pinMode(S_VD, INPUT);
 
 
 }
@@ -140,6 +152,6 @@ if ((S_TEE == 0) && (S_TE == 0) && (S_TD == 1) && (S_TED == 1))
     atualiza();
 
     esquerda();
+   }
   }
  }
-  }
