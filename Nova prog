@@ -10,11 +10,10 @@ int S_VEE = ; //Sensor verde extrema esquerda
 int S_VE = ; // Sensor verde esquerda
 int S_VED = ; //Sensor verde extrema direita
 int V_VD = ; // Sensor verde direita
-byte mfd = ; // Motor frontal direita
-byte mfe = ; // Motor frontal esquerda
-byte mtd = ; // Motor traseiro direita
-byte mte = ; // Motor traseiro esquerda
-
+byte mfd = 11 ; // Motor frontal direita
+byte mtd = 5; // Motor traseiro direita
+byte mte = 10; // Motor traseiro esquerda 
+byte mfe = 4 ; // Motor frontal esquerda 
 
 
 void frente() //Função de ir à frente
