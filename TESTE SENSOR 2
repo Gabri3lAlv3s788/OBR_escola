@@ -1,0 +1,59 @@
+int S_FE = 47 ; // Sensor frontal esquerda
+int S_FC = 41 ; // Sensor frontal centro
+int S_FD = 34 ; // Sensor frontal direita
+int S_TE = 44 ; // Sensor traseiro  esquerda / 1 = branco / 0 = preto
+int S_TEE = 50 ; //Sensor traseiro extremo esquerda / 1 = branco / 0 = preto 
+int S_TC = 35 ; // Sensor traseiro centro / 1 = branco / 0 = preto
+int S_TD = 40 ; // Sensor traseiro direita / 1 branco / 0 preto
+int S_TED = 53 ; //Sensor traseiro extrema direita / 1 = branco / 0 = preto 
+int S_VEE = A11 ; //Sensor verde extrema esquerda
+int S_VE = A13 ; // Sensor verde esquerda
+int S_VED = A15; //Sensor verde extrema direita
+int S_VD = A9 ; // Sensor verde direita
+byte mfd = 11 ; // Motor frontal direita
+byte mtd = 10; // Motor traseiro direita
+byte mte = 5; // Motor traseiro esquerda 
+byte mfe = 4 ; // Motor frontal esquerda 
+
+
+
+
+void setup() {
+  // put your setup code here, to run once:
+
+S_FE = digitalRead(47);
+S_FC = digitalRead(41);
+S_FD = digitalRead(34);
+S_TE = digitalRead(44);
+S_TEE = digitalRead(50);
+S_TC = digitalRead(35);
+S_TD = digitalRead(40);
+S_TED = digitalRead(53);
+S_VEE = analogRead(A11);
+S_VE = analogRead(A13);
+S_VED = analogRead(A15);
+S_VD = analogRead(A9);
+Serial.begin(9600);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+S_FE = digitalRead(47);
+S_FC = digitalRead(41);
+S_FD = digitalRead(34);
+S_TE = digitalRead(44);
+S_TEE = digitalRead(50);
+S_TC = digitalRead(35);
+S_TD = digitalRead(40);
+S_TED = digitalRead(53);
+S_VEE = analogRead(A11);
+S_VE = analogRead(A13);
+S_VED = analogRead(A15);
+S_VD = analogRead(A9);
+ Serial.print(" STEE=");Serial.print(S_TEE); Serial.print("||"); Serial.print(" STE="); Serial.print(S_TE); Serial.print("||"); 
+  Serial.print(" STC="); Serial.print(S_TC); Serial.print(" STD="); Serial.print(S_TD); Serial.print("||"); Serial.print("STED="); Serial.println(S_TED);
+
+
+}
