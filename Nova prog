@@ -1,43 +1,46 @@
-int S_FE = ; // Sensor frontal esquerda
-int S_FC = ; // Sensor frontal centro
-int S_FD = ; // Sensor frontal direita
-int S_TE = ; // Sensor traseiro  esquerda
-int S_TEE = ; //Sensor traseiro extremo esquerda
-int S_TC = ; // Sensor traseiro centro
-int S_TD = ; // Sensor traseiro direita
-int S_TED = ; //Sensor traseiro extrema direita
-int S_VEE = ; //Sensor verde extrema esquerda
-int S_VE = ; // Sensor verde esquerda
-int S_VED = ; //Sensor verde extrema direita
-int V_VD = ; // Sensor verde direita
+int S_FE = 47 ; // Sensor frontal esquerda
+int S_FC = 41 ; // Sensor frontal centro
+int S_FD = 34 ; // Sensor frontal direita
+int S_TE = 44 ; // Sensor traseiro  esquerda / 1 = branco / 0 = preto
+int S_TEE = 50 ; //Sensor traseiro extremo esquerda / 1 = branco / 0 = preto 
+int S_TC = 35 ; // Sensor traseiro centro / 1 = branco / 0 = preto
+int S_TD = 40 ; // Sensor traseiro direita / 1 branco / 0 preto
+int S_TED = 53 ; //Sensor traseiro extrema direita / 1 = branco / 0 = preto 
+int S_VEE = A11 ; //Sensor verde extrema esquerda
+int S_VE = A13 ; // Sensor verde esquerda
+int S_VED = A15; //Sensor verde extrema direita
+int S_VD = A9 ; // Sensor verde direita
 byte mfd = 11 ; // Motor frontal direita
-byte mtd = 5; // Motor traseiro direita
-byte mte = 10; // Motor traseiro esquerda 
+byte mtd = 10; // Motor traseiro direita
+byte mte = 5; // Motor traseiro esquerda 
 byte mfe = 4 ; // Motor frontal esquerda 
+int SO_VE;
+int SO_VD;
 
 
+  
 void frente() //Função de ir à frente
 {
   analogWrite(mfd, 200);
   analogWrite(mtd, 0);
-  analogWrite(mofe, 200);
+  analogWrite(mfe, 200);
   analogWrite(mte, 0);
 }
 
 void direita() //Função de ajuste à direita
 {
-  analogWrite(mfd 0);
-  analogWrite(mtd, 200);
-  analogWrite(mfe, 200);
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 170);
   analogWrite(mte, 0);
 }
 
 void esquerda() //Função de ajuste à esquerda
 {
-  analogWrite(mfd, 200);
+  analogWrite(mfd, 170);
   analogWrite(mtd, 0);
   analogWrite(mfe, 0);
-  analogWrite(mte, 200);
+  analogWrite(mte, 170);
 }
 void parar() //Função de parar o robô
 {
@@ -50,107 +53,180 @@ void parar() //Função de parar o robô
 void atualiza() //Função de atualização dos sensores
 {
 
-S_FE = digitalRead();
-S_FC = digitalRead();
-S_FD = digitalRead();
-S_TE = digitalRead();
-S_TEE = digitalRead();
-S_TC = digitalRead();
-S_TD = digitalRead();
-S_TED = digitalRead();
-S_VEE = analogRead();
-S_VE = analogRead();
-S_VED = analogRead();
-S_VD = analogRead();
+S_FE = digitalRead(47);
+S_FC = digitalRead(41);
+S_FD = digitalRead(34);
+S_TE = digitalRead(44);
+S_TEE = digitalRead(50);
+S_TC = digitalRead(35);
+S_TD = digitalRead(40);
+S_TED = digitalRead(53);
+S_VEE = analogRead(A11);
+S_VE = analogRead(A13);
+S_VED = analogRead(A15);
+S_VD = analogRead(A9);
 }
 
 
 void setup() {
 
 pinMode(mfd, OUTPUT);
-pinMode(mfe, OUTPUT);
 pinMode(mtd, OUTPUT);
+pinMode(mfe, OUTPUT);
 pinMode(mte, OUTPUT);
-pinMode(S_FE, INPUT);
-pinMode(S_FC, INPUT);
-pinMode(S_FD, INPUT);
-pinMode(S_TE, INPUT);
-pinMode(S_TEE, INPUT);
-pinMode(S_TC, INPUT);
-pinMode(S_TD, INPUT);
-pinMode(S_TED, INPUT);
-pinMode(S_VED, INPUT);
-pinMode(S_VE, INPUT);
-pinMode(S_VED, INPUT);
+pinMode(S_FE, INPUT_PULLUP);
+pinMode(S_FC, INPUT_PULLUP);
+pinMode(S_FD, INPUT_PULLUP);
+pinMode(S_TE, INPUT_PULLUP);
+pinMode(S_TEE, INPUT_PULLUP);
+pinMode(S_TC, INPUT_PULLUP);
+pinMode(S_TD, INPUT_PULLUP);
+pinMode(S_TED, INPUT_PULLUP);
+pinMode(S_VED, INPUT_PULLUP);
+pinMode(S_VE, INPUT_PULLUP);
+pinMode(S_VED, INPUT_PULLUP);
 pinMode(S_VD, INPUT);
 
-
+Serial.begin(9600);
 }
 
 void loop() {
 
-atualiza();
-
+S_FE = digitalRead(47);
+S_FC = digitalRead(41);
+S_FD = digitalRead(34);
+S_TE = digitalRead(44);
+S_TEE = digitalRead(50);
+S_TC = digitalRead(35);
+S_TD = digitalRead(40);
+S_TED = digitalRead(53);
+S_VEE = analogRead(A11);
+S_VE = analogRead(A13);
+S_VED = analogRead(A15);
+S_VD = analogRead(A9);
 
 //Segue linha
  if ((S_TE == 0) && (S_TD == 0))
-  { 
-    frente();
+  { Serial.println("tudobranco");
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 200);
+  analogWrite(mte, 0);
   }
-  if ((S_TE == 1) && (S_TD == 0))
-  {
-      direita();
-  }
-
-
   if ((S_TE == 0) && (S_TD == 1))
   {
-      esquerda();
+
+    Serial.println("ajuste direita");
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0);
+
   }
+
+  if ((S_TE == 1) && (S_TD == 0))
+  {
+  Serial.println("ajuste esquerda");
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+ 
+
+  }
+  
 
 //90 direita
-if ((S_TEE == 0) && (S_TE == 0) && (S_TD == 1) && (S_TED == 1))
+if ((S_TEE == 0) && (S_TE == 0) && (S_TC == 1)&&(S_TD == 1) && (S_TED == 1)) 
 
   {
+Serial.println("90 direita");
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 0);
+    delay(400);
 
-    parar();  
-    delay(200);
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0);
+    delay(350);
 
-    frente();
-    delay(200);
+    if ((S_FE == 1) || (S_FC == 1) || (S_FD == 1))
 
-  
-    frente();
-    delay(220);
-    while (S_TE == 0)
     {
-
-    atualiza();
-
-    direita();
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0); 
+  delay(300);
     }
+
+    atualiza();
+     Serial.println(S_TC);
+       Serial.println(S_TE);
+    while (S_TC == 0) 
+    {
+ Serial.println(S_TC);
+       Serial.println(S_TE);
+    atualiza();
+    Serial.println("estou dando a minha bunda");
+
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 200);
+  analogWrite(mfe, 200);
+  analogWrite(mte, 0);
+   }
+   return;
+  }
 //90 esquerda
-  if ((S_TEE == 1) && (S_TE == 1) && (S_TD == 0) && (S_TED == 0))
+  if ((S_TEE == 1) && (S_TE == 1) && 
+   
+  (S_TC == 1) && (S_FC == 0) && (S_FE == 0) && (S_FD == 0) && (S_TED == 0))
 
   {
-
-    parar();
+Serial.println("90 esquerda");
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 0);
     delay(200);
 
-    frente();
-    delay(200);
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0); 
+    delay(300);
+
+     if ((S_FE == 1) || (S_FC == 1) || (S_FD == 1))
+
+    {
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0); 
+  delay(300);
+    }
 
   
-    frente();
-    delay(220);
 
     atualiza();
-    while (S_TD == 0)
+     Serial.println(S_TC);
+       Serial.println(S_TD);
+    while (S_TC == 0) 
     {
-
+ Serial.println(S_TC);
+       Serial.println(S_TD);
     atualiza();
+    Serial.println("estou dando a bunda");
 
-    esquerda();
+  analogWrite(mfd, 200);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 200);
    }
+   return;
   }
+  
  }
