@@ -14,6 +14,13 @@ byte mfd = 11 ; // Motor frontal direita
 byte mtd = 10; // Motor traseiro direita
 byte mte = 5; // Motor traseiro esquerda 
 byte mfe = 4 ; // Motor frontal esquerda 
+
+byte led1 = 22 ;// led esquerdo
+byte led2 = 24 ;// led vermelho
+byte led3 = 26 ;// led verde 
+byte led4 = 28 ;// led azul
+byte led5 = 30 ; //led direito
+
 float SO_VE;
 float SO_VD;
 
@@ -21,9 +28,9 @@ float SO_VD;
   
 void frente() //Função de ir à frente
 {
-  analogWrite(mfd, 200);
+  analogWrite(mfd, 170);
   analogWrite(mtd, 0);
-  analogWrite(mfe, 200);
+  analogWrite(mfe, 170);
   analogWrite(mte, 0);
 }
 
@@ -74,6 +81,11 @@ pinMode(mfd, OUTPUT);
 pinMode(mtd, OUTPUT);
 pinMode(mfe, OUTPUT);
 pinMode(mte, OUTPUT);
+pinMode(led1,OUTPUT);
+pinMode(led2,OUTPUT);
+pinMode(led3,OUTPUT);
+pinMode(led4,OUTPUT);
+pinMode(led5,OUTPUT);
 pinMode(S_FE, INPUT_PULLUP);
 pinMode(S_FC, INPUT_PULLUP);
 pinMode(S_FD, INPUT_PULLUP);
@@ -86,6 +98,8 @@ pinMode(S_VED, INPUT_PULLUP);
 pinMode(S_VE, INPUT_PULLUP);
 pinMode(S_VED, INPUT_PULLUP);
 pinMode(S_VD, INPUT_PULLUP);
+
+
 
 Serial.begin(9600);
 }
@@ -108,40 +122,173 @@ S_VD = analogRead(A9);
 
 
 //90 direita
-  if ((S_TED == 1)&& (S_TC == 1) && (S_FC == 0) && (S_FE == 0) && (S_FD == 0) && (S_TEE == 0))
+  if ((S_TED == 1) && (S_TC == 1) && (S_FC == 0) && (S_FE == 0) && (S_FD == 0) && (S_TEE == 0))
 
   {
-Serial.println("90 direita");
+  Serial.println("90 direita");
   analogWrite(mfd, 0);
   analogWrite(mtd, 0);
   analogWrite(mfe, 0);
   analogWrite(mte, 0);
-    delay(200);
-
+    delay(500);
+    
   analogWrite(mfd, 170);
   analogWrite(mtd, 0);
   analogWrite(mfe, 170);
+  analogWrite(mte, 0); 
+    delay(350);
+
+    atualiza();
+     Serial.println(S_TC);
+     Serial.println(S_TE);
+    while (S_TC == 0) 
+    {
+ Serial.println(S_TC);
+       Serial.println(S_TE);
+    atualiza();
+    Serial.println("curva 90 direita");
+
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 190);
+  analogWrite(mfe, 205);
   analogWrite(mte, 0);
-    delay(300);
+
+  
+   }
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+  delay(150);
+   return;
+   
+  }
+  
+//90 esquerda
+  if ((S_TEE == 1) && (S_TC == 1) && (S_FC == 0) && (S_FE == 0) && (S_FD == 0) && (S_TED == 0))
+
+  {
+Serial.println("90 esquerda");
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 0);
+    delay(500);
     
     atualiza();
-    if ((S_FE == 1) || (S_FC == 1) || (S_FD == 1))
+    
+     if ((S_FE == 1) || (S_FC == 1) || (S_FD == 1))
 
     {
-      
-  Serial.println("T_direita");
+  Serial.println("T esquerda");
+//    analogWrite(mfd, 0);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 0);
+//    analogWrite(mte, 0); 
+//    delay(3000000000000000000);
+
+    
+    atualiza();
+    SO_VE = (S_VEE + S_VE) / 2;
+    if ((SO_VE <= 700) && (SO_VE >= 250))
+    {
+//    analogWrite(mfd, 0);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 0);
+//    analogWrite(mte, 0); 
+//    delay(30000000000000000000000);
+    Serial.println("Verde esquerda");
+    analogWrite(mfd, 170);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 170);
+    analogWrite(mte, 0); 
+    delay(300); 
+      atualiza();
+     Serial.println(S_TC);
+     Serial.println(S_TD);
+    while (S_TC == 0) 
+    {
+      Serial.println("curva do verde esquerda");
+      Serial.println(S_TC);
+       Serial.println(S_TD);
+    atualiza();
+
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+   }
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+  delay(150);
+   return;
+    }
+
   analogWrite(mfd, 170);
   analogWrite(mtd, 0);
   analogWrite(mfe, 170);
   analogWrite(mte, 0); 
   delay(300);
-  
-    }
 
+    }
+  
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0); 
+    delay(350);
+
+    atualiza();
+     Serial.println(S_TC);
+     Serial.println(S_TD);
+    while (S_TC == 0) 
+    {
+ Serial.println(S_TC);
+       Serial.println(S_TD);
+    atualiza();
+    Serial.println("curva 90 esquerda");
+
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+
+  
+   }
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+  delay(150);
+   return;
+   
+  }
+  
+
+ //encruzilhada
+  if ((S_TED == 1) && (S_TEE == 1))
+  {
+      Serial.println("encruzilhada");
+//  analogWrite(mfd, 0);
+//  analogWrite(mtd, 0);
+//  analogWrite(mfe, 0);
+//  analogWrite(mte, 0);
+//    delay(50000000000000000000000);
+
+
+
+ //verde direita
     atualiza();
     SO_VD = (S_VED + S_VD) / 2;
     if ((SO_VE <= 700) && (SO_VE >= 250))
     {
+//    analogWrite(mfd, 0);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 0);
+//    analogWrite(mte, 0); 
+//    delay(3000000000000000000000000);
     Serial.println("verde_direita");
     analogWrite(mfd, 170);
     analogWrite(mtd, 0);
@@ -159,78 +306,30 @@ Serial.println("90 direita");
        Serial.println("curva verde direita");
 
       analogWrite(mfd, 0);
-      analogWrite(mtd, 200);
-      analogWrite(mfe, 200);
+      analogWrite(mtd, 170);
+      analogWrite(mfe, 170);
       analogWrite(mte, 0);
    }
   analogWrite(mfd, 0);
-  analogWrite(mtd, 200);
+  analogWrite(mtd, 170);
   analogWrite(mfe, 0);
-  analogWrite(mte, 200);
+  analogWrite(mte, 170);
   delay(150);
     return;
-  }
-
-
-        atualiza();
-        Serial.println(S_TC);
-        Serial.println(S_TE);
-       while (S_TC == 0) 
-    {
-       Serial.println(S_TC);
-       Serial.println(S_TE);
-       atualiza();
-       Serial.println("curva do 90 direita");
-
-      analogWrite(mfd, 0);
-      analogWrite(mtd, 200);
-      analogWrite(mfe, 200);
-      analogWrite(mte, 0);
-   }
-  analogWrite(mfd, 0);
-  analogWrite(mtd, 200);
-  analogWrite(mfe, 0);
-  analogWrite(mte, 200);
-  delay(150);
-    return;
-  }
-
-
-
-//90 esquerda
-  if ((S_TEE == 1) && (S_TC == 1) && (S_FC == 0) && (S_FE == 0) && (S_FD == 0) && (S_TED == 0))
-
-  {
-Serial.println("90 esquerda");
-  analogWrite(mfd, 0);
-  analogWrite(mtd, 0);
-  analogWrite(mfe, 0);
-  analogWrite(mte, 0);
-    delay(200);
-
-  analogWrite(mfd, 170);
-  analogWrite(mtd, 0);
-  analogWrite(mfe, 170);
-  analogWrite(mte, 0); 
-    delay(350);
+  } 
+  
+    //verde esquerda
     
-    atualiza();
-    
-     if ((S_FE == 1) || (S_FC == 1) || (S_FD == 1))
-
-    {
-  Serial.println("T esquerda");
-  analogWrite(mfd, 170);
-  analogWrite(mtd, 0);
-  analogWrite(mfe, 170);
-  analogWrite(mte, 0); 
-  delay(300);
-    }
     atualiza();
     SO_VE = (S_VEE + S_VE) / 2;
     if ((SO_VE <= 700) && (SO_VE >= 250))
     {
-    Serial.println("Verde esquerda");
+//    analogWrite(mfd, 170);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 170);
+//    analogWrite(mte, 0); 
+//    delay(300000000000000000);
+    Serial.println("Verde esquerdaE");
     analogWrite(mfd, 170);
     analogWrite(mtd, 0);
     analogWrite(mfe, 170);
@@ -241,71 +340,49 @@ Serial.println("90 esquerda");
      Serial.println(S_TD);
     while (S_TC == 0) 
     {
-      Serial.println("curva do verde esquerda");
+      Serial.println("curva do verde esquerdaE");
       Serial.println(S_TC);
        Serial.println(S_TD);
     atualiza();
 
-  analogWrite(mfd, 200);
+  analogWrite(mfd, 170);
   analogWrite(mtd, 0);
   analogWrite(mfe, 0);
-  analogWrite(mte, 200);
+  analogWrite(mte, 170);
    }
   analogWrite(mfd, 0);
-  analogWrite(mtd, 200);
+  analogWrite(mtd, 170);
   analogWrite(mfe, 0);
-  analogWrite(mte, 200);
+  analogWrite(mte, 170);
   delay(150);
    return;
     }
-  
 
-    atualiza();
-     Serial.println(S_TC);
-     Serial.println(S_TD);
-    while (S_TC == 0) 
-    {
- Serial.println(S_TC);
-       Serial.println(S_TD);
-    atualiza();
-    Serial.println("curva 90 esquerda");
-
-  analogWrite(mfd, 200);
+  analogWrite(mfd, 170);
   analogWrite(mtd, 0);
-  analogWrite(mfe, 0);
-  analogWrite(mte, 200);
-
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0); 
+  delay(350);
   
-   }
-  analogWrite(mfd, 0);
-  analogWrite(mtd, 200);
-  analogWrite(mfe, 0);
-  analogWrite(mte, 200);
-  delay(150);
-   return;
-   
   }
-  
-
-
 
 
 
 //Segue linha
  if ((S_TE == 0) && (S_TD == 0))
   {
-    atualiza(); 
+    
   Serial.println("tudobranco");
-  analogWrite(mfd, 150);
+  analogWrite(mfd, 155);
   analogWrite(mtd, 0);
-  analogWrite(mfe, 180);
+  analogWrite(mfe, 185);
   analogWrite(mte, 0);
   atualiza();
   return;
   }
   if ((S_TE == 0) && (S_TD == 1))
   {
-  atualiza();
+
   Serial.println("ajuste direita");
   analogWrite(mfd, 0);
   analogWrite(mtd, 180);
@@ -318,15 +395,88 @@ Serial.println("90 esquerda");
 
   if ((S_TE == 1) && (S_TD == 0))
   {
-  atualiza();  
   Serial.println("ajuste esquerda");
-  analogWrite(mfd, 180);
+  analogWrite(mfd, 170);
   analogWrite(mtd, 0);
   analogWrite(mfe, 0);
-  analogWrite(mte, 180);
+  analogWrite(mte, 170);
   atualiza();
   return;
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if ((S_TED == 1) && (S_TC == 1)&& (S_TEE == 0) && (S_FE == 1) || (S_FC == 1) || (S_FD == 1))
+
+    {
+  Serial.println("T direita");
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 0); 
+    delay(30000000000000000000);
+
+    
+    atualiza();
+    SO_VD = (S_VED + S_VD) / 2;
+    if ((SO_VD <= 700) && (SO_VD >= 250))
+    {
+//    analogWrite(mfd, 0);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 0);
+//    analogWrite(mte, 0); 
+//    delay(3000000000000000000000000000000000);
+    Serial.println("Verde direita");
+    analogWrite(mfd, 170);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 170);
+    analogWrite(mte, 0); 
+    delay(300); 
+      atualiza();
+     Serial.println(S_TC);
+     Serial.println(S_TE);
+    while (S_TC == 0) 
+    {
+      Serial.println("curva do verde direita");
+      Serial.println(S_TC);
+       Serial.println(S_TE);
+    atualiza();
+
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0);
+   }
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+  delay(150);
+   return;
+    }
+
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0); 
+  delay(300);
+
+    }
+  
+
+ 
  }
