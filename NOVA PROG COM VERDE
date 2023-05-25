@@ -106,6 +106,18 @@ Serial.begin(9600);
 
 void loop() {
 
+//leds
+//digitalWrite(led1, HIGH);
+//delay(1000);
+//digitalWrite(led2, HIGH);
+//delay(1000);
+//digitalWrite(led3, HIGH);
+//delay(1000);
+//digitalWrite(led4, HIGH);
+//delay(1000);
+//digitalWrite(led5, HIGH);
+//delay(1000);
+
 S_FE = digitalRead(47);
 S_FC = digitalRead(41);
 S_FD = digitalRead(34);
