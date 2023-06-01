@@ -18,6 +18,13 @@ void parar()
     analogWrite(mte, 0);
 }
 
+void frente()
+{
+    analogWrite(mfd, 150);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 200);
+    analogWrite(mte, 0);
+}
 
 #include <Wire.h>
 
@@ -169,33 +176,20 @@ giroscopio_X();
     analogWrite(mte, 0);
 }
 
-    analogWrite(mfd, 0);
-    analogWrite(mtd, 0);
-    analogWrite(mfe, 0);
-    analogWrite(mte, 0);
+    parar();
     delay(500);
 
-//    frente
-
-    analogWrite(mfd, 150);
-    analogWrite(mtd, 0);
-    analogWrite(mfe, 200);
-    analogWrite(mte, 0);
+    frente();
     delay(1300);
 
-//    parar
-
-    analogWrite(mfd, 0);
-    analogWrite(mtd, 0);
-    analogWrite(mfe, 0);
-    analogWrite(mte, 0);
+    parar();
     delay(500);
 
 //    esquerda
 giroscopio_X();
 
 angleX=0;
-while (angleX >-70)
+while (angleX >-95)
 {
   giroscopio_X();
     analogWrite(mfd, 200);
@@ -207,17 +201,32 @@ while (angleX >-70)
     parar();
     delay(500);
 
-//    frente
+    frente();
+    delay(2500);
+
+
 //
-//    parar
+    parar();
+    delay(500);
 //    
 //    esquerda
-//
-//    parar
+giroscopio_X();
+
+angleX=0;
+while (angleX >-85)
+{
+  giroscopio_X();
+    analogWrite(mfd, 200);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 200);
+}
+    parar();
+    delay(500);
 
 //    while (S_TC == 0)
 //    {
-//      frente
+      frente();
 //    }
 
     
