@@ -1,0 +1,1185 @@
+int S_FE = 47 ; // Sensor frontal esquerda
+int S_FC = 41 ; // Sensor frontal centro
+int S_FD = 34 ; // Sensor frontal direita
+int S_TE = 44 ; // Sensor traseiro  esquerda / 1 = branco / 0 = preto
+int S_TEE = 50 ; //Sensor traseiro extremo esquerda / 1 = branco / 0 = preto
+int S_TC = 35 ; // Sensor traseiro centro / 1 = branco / 0 = preto
+int S_TD = A2 ; // Sensor traseiro direita / 1 branco / 0 preto
+int S_TED = 53 ; //Sensor traseiro extrema direita / 1 = branco / 0 = preto
+int S_VEE = A11 ;//Sensor verde extrema esquerda
+int S_VE = A13 ;// Sensor verde esquerda
+int S_VED = A9;//  Sensor verde extrema direita
+int S_VD = A15 ;// Sensor verde direita
+int S_Di = A7; //  Sensor de distância
+int S_DiF = A4; // Sensor de distância frontal
+int S_DiT = A12; //Sensor de distância traseirio
+
+byte mfd = 11 ;//  Motor frontal direita
+byte mtd = 10; //  Motor traseiro direita
+byte mte = 5;  //  Motor traseiro esquerda
+byte mfe = 4 ; //  Motor frontal esquerda
+
+byte mgs = 6; //   Motor da garra para subuir
+byte mgd = 7; //   Motor da garra para descer
+byte mgf = 12;//   Motor da garra para frente
+byte mgt = 13;//   Motor da garra para trás
+
+byte led1 = 22 ;// led esquerdo
+byte led2 = 24 ;// led vermelho
+byte led3 = 26 ;// led verde
+byte led4 = 28 ;// led azul
+byte led5 = 30 ; //led direito
+
+byte botao = 37;// Botão que indica se houve contato com redutor
+byte botao2 = 32;// Botão que indica se houve inclinação
+
+float SO_VE; //Valor da soma dos verdes da esquerda
+float SO_VD; //Valor da soma dos verdes da direita
+int SensorM;
+int ValorAntV1;
+int ValorAntV2;
+int DiferencaV1;
+int DiferencaV2;
+
+
+int base1 = 0;
+int base2 = 0;
+int base3 = 0;
+
+
+int VEIGA = 0;
+int DUDU = 0;
+
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+//Funções dos motores e sensores
+void frenteR() //Função de ir à frente
+{
+  analogWrite(mfd, 150);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 180);
+  analogWrite(mte, 0);
+}
+
+
+void frente() //Função de ir à frente
+{
+  analogWrite(mfd, 110);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 190);
+  analogWrite(mte, 0);
+}
+
+
+void direita() //Função de ajuste à direita
+{
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0);
+}
+
+void esquerda() //Função de ajuste à esquerda
+{
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+}
+void parar() //Função de parar o robô
+{
+  analogWrite(mfd, 250);
+  analogWrite(mtd, 250);
+  analogWrite(mfe, 250);
+  analogWrite(mte, 250);
+}
+
+void tras() //Função de parar o robô
+{
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 150);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 150);
+}
+
+
+void atualiza() //Função de atualização dos sensores
+{
+
+  S_FE = digitalRead(47);
+  S_FC = digitalRead(41);
+  S_FD = digitalRead(34);
+  S_TE = digitalRead(44);
+  S_TEE = digitalRead(50);
+  S_TC = digitalRead(35);
+  S_TD = analogRead(A2);
+  S_TED = digitalRead(53);
+  S_VEE = analogRead(A11);
+  S_VE = analogRead(A13);
+  S_VED = analogRead(A15);
+  S_VD = analogRead(A9);
+  S_Di = analogRead(A7);
+  S_DiF = analogRead(A4);
+  S_DiT = analogRead(A12);
+  botao2 = digitalRead(32);
+}
+
+  void segue() // Função do segue linha
+  {
+  if ((S_TE == 0) && (S_TD < 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("tudobranco");
+    analogWrite(mfd, 110);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 190);
+    analogWrite(mte, 0);
+    atualiza();
+    
+    return;
+  }
+  atualiza();
+  if ((S_TE == 0) && (S_TD > 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("ajuste direita");
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 190);
+    analogWrite(mfe, 220);
+    analogWrite(mte, 0);
+    atualiza();
+    
+    return;
+
+  }
+atualiza();
+  if ((S_TE == 1) && (S_TD < 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("ajuste esquerda");
+    analogWrite(mfd, 190);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 220);
+    atualiza();
+    
+    return;
+  }
+
+  }
+
+
+//======================================================================================
+//======================================================================================
+
+
+//Giroscopio
+
+
+
+#include <Wire.h> 
+//--- Endereços HEX de registro do giroscópio
+#define Gyro_gX0 0x28
+#define Gyro_gX1 0x29
+#define Gyro_gY0 0x2A
+#define Gyro_gY1 0x2B
+#define Gyro_gZ0 0x2C
+#define Gyro_gZ1 0x2D
+
+
+int Gyro = 0x69; //Endereço HEX do giroscópio
+
+// ---------- Variáveis auxiliares ----------
+int gX0, gX1, gX_out;
+int gY0, gY1, gY_out;
+int gZ0, gZ1, gZ_out;
+float Xg, Yg, Zg;
+float angleX, angleY, angleZ, angleXc, angleYc, angleZc;
+
+unsigned long start, finished, elapsed;
+float dt = 0.015;
+
+float giroscopio_Z ()
+{
+  Wire.beginTransmission(Gyro);
+  Wire.write(Gyro_gZ0);
+  Wire.endTransmission();
+  Wire.requestFrom(Gyro, 1);
+  if (Wire.available() <= 1)    gZ0 = Wire.read();
+  Wire.beginTransmission(Gyro);
+  Wire.write(Gyro_gZ1);
+  Wire.endTransmission();
+  Wire.requestFrom(Gyro, 1);
+  if (Wire.available() <= 1)    gZ1 = Wire.read();
+  gZ1 = gZ1 << 8;
+  gZ_out = gZ0 + gZ1;
+  Zg = gZ_out * 0.044;
+  angleZc = Zg * dt;
+  angleZ = angleZ + angleZc;
+  Serial.println(angleZ);
+}
+
+float giroscopio_X ()
+{
+Wire.beginTransmission(Gyro);
+  Wire.write(Gyro_gX0);
+  Wire.endTransmission();
+  Wire.requestFrom(Gyro, 1);
+  if (Wire.available() <= 1)    gX0 = Wire.read();
+  Wire.beginTransmission(Gyro);
+  Wire.write(Gyro_gX1);
+  Wire.endTransmission();
+  Wire.requestFrom(Gyro, 1);
+  if (Wire.available() <= 1)    gX1 = Wire.read();
+  gX1 = gX1 << 8;
+  gX_out = gX0 + gX1;
+  Xg = gX_out * 0.044;//mudar
+  angleXc = Xg * dt;
+  angleX = angleX + angleXc;
+
+}
+
+float giroscopio_Y ()
+{
+Wire.beginTransmission(Gyro);
+  Wire.write(Gyro_gY0);
+  Wire.endTransmission();
+  Wire.requestFrom(Gyro, 1);
+  if (Wire.available() <= 1)    gY0 = Wire.read();
+  Wire.beginTransmission(Gyro);
+  Wire.write(Gyro_gY1);
+  Wire.endTransmission();
+  Wire.requestFrom(Gyro, 1);
+  if (Wire.available() <= 1)    gY1 = Wire.read();
+  gY1 = gY1 << 8;
+  gY_out = gY0 + gY1;
+  Yg = gY_out * 0.044;//mudar
+  angleYc = Yg * dt;
+  angleY = angleY + angleYc;
+  Serial.println(angleY);
+}
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+void setup() {
+
+  pinMode(mfd, OUTPUT);
+  pinMode(mtd, OUTPUT);
+  pinMode(mfe, OUTPUT);
+  pinMode(mte, OUTPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
+  pinMode(led5, OUTPUT);
+  pinMode(mgs, OUTPUT);
+  pinMode(mgd, OUTPUT);
+  pinMode(mgf, OUTPUT);
+  pinMode(mgt, OUTPUT);
+
+  pinMode(S_FE, INPUT_PULLUP);
+  pinMode(S_FC, INPUT_PULLUP);
+  pinMode(S_FD, INPUT_PULLUP); 
+  pinMode(S_TE, INPUT_PULLUP);
+  pinMode(S_TEE,INPUT_PULLUP);
+  pinMode(S_TC, INPUT_PULLUP);
+  pinMode(S_TD, INPUT_PULLUP);
+  pinMode(S_TED,INPUT_PULLUP);
+  pinMode(S_VED,INPUT_PULLUP);
+  pinMode(S_VE, INPUT_PULLUP);
+  pinMode(S_VED,INPUT_PULLUP);
+  pinMode(S_VD, INPUT_PULLUP);
+  pinMode(S_Di, INPUT);
+  pinMode(S_DiF, INPUT);
+  pinMode(S_DiT, INPUT);
+  pinMode(botao,INPUT_PULLUP);
+  pinMode(botao2, INPUT_PULLUP);
+  
+
+//======================================================================================
+//======================================================================================  
+
+//======================================================================================
+//======================================================================================
+
+ //Inicia a biblioteca e determina a velocidade do monitor serial
+  Wire.begin();
+
+  //Conexão inicial com o giroscópio - variável Gyro declarada com seu endereço HEX
+  Wire.beginTransmission(Gyro);
+  Wire.write(0x20); // CTRL_REG1 - Ligou!!
+  Wire.write(15);   // Modo normal: 15d - 00001111 bit
+  Wire.endTransmission();
+
+  Wire.beginTransmission(Gyro);
+  Wire.write(0x23); // CTRL_REG4 - Sensibilidade, seleção de escala
+  Wire.write(48);   // 2000dps: 48d - 00110000 bit
+  Wire.endTransmission();
+
+
+  Serial.begin(9600);
+}
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+void loop() {
+
+  S_FE = digitalRead(47);
+  S_FC = digitalRead(41);
+  S_FD = digitalRead(34);
+  S_TE = digitalRead(44);
+  S_TEE = digitalRead(50);
+  S_TC = digitalRead(35);
+  S_TD = analogRead(A2);
+  S_TED = digitalRead(53);
+  S_VEE = analogRead(A11);
+  S_VE = analogRead(A13);
+  S_VED = analogRead(A15);
+  S_VD = analogRead(A9);
+  S_Di = analogRead(A7);
+  S_DiF = analogRead(A4);
+  S_DiT = analogRead(A12);
+  botao = digitalRead(37);
+  botao2 = digitalRead(32);
+
+  digitalWrite(led1, LOW);
+  digitalWrite(led2, LOW);
+  digitalWrite(led3, LOW);
+  digitalWrite(led4, LOW);
+  digitalWrite(led5, LOW);
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+
+////RAMPA
+//  
+//  giroscopio_Z();
+//
+//
+//
+//  if  ((S_DiT > 200) && (S_DiF > 200))
+//{   
+//  Serial.println("RAMPA");
+//  digitalWrite(led1, HIGH);
+//  digitalWrite(led5, HIGH);
+//  digitalWrite(led4, HIGH);
+// 
+//      //Segue linha
+//      atualiza();
+//  if ((S_TE == 0) && (S_TD < 200))
+//  {
+//    analogWrite(mfd, 200);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 210);
+//    analogWrite(mte, 0);
+//    atualiza();
+//    return;
+//  }
+//  atualiza();
+//  if ((S_TE == 0) && (S_TD > 200))
+//  {
+//    analogWrite(mfd, 50);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 200);
+//    analogWrite(mte, 0);
+//    atualiza();
+//    return;
+//
+//  }
+//atualiza();
+//  if ((S_TE == 1) && (S_TD < 200))
+//  {
+//    analogWrite(mfd, 200);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 50);
+//    analogWrite(mte, 0);
+//    atualiza();
+//    return;
+//  }
+//atualiza();
+//  if ((S_TE == 1) && (S_TD > 200))
+//{
+//    analogWrite(mfd, 200);
+//    analogWrite(mtd, 0);
+//    analogWrite(mfe, 220);
+//    analogWrite(mte, 0);
+//    delay(2000);
+//
+//    parar();
+//    delay(800);
+//
+//    analogWrite(mgf, 200);
+//
+//    giroscopio_X();
+//    angleX = 0;
+//    atualiza();
+//    while (angleX > -90)
+//{
+//  
+//      giroscopio_X();
+//      Serial.println(angleX);
+//      digitalWrite(led1, HIGH);
+//      digitalWrite(led5, HIGH);
+//      analogWrite(mfd, 200);
+//      analogWrite(mtd, 0);
+//      analogWrite(mfe, 0);
+//      analogWrite(mte, 200);
+//}
+//
+//tras();
+//delay(2000);
+//
+//atualiza();
+//
+//if (S_DiT > 400)
+//{
+//  atualiza();
+//  base1 = 1;
+//  digitalWrite(led3, HIGH);
+//}
+//
+//atualiza();
+//while (S_Di < 470)
+//{      
+//      atualiza();
+//      analogWrite(mfd, 110);
+//      analogWrite(mtd, 0);
+//      analogWrite(mfe, 190);
+//      analogWrite(mte, 0);  
+//
+//}
+//
+//parar();
+//delay(1000);
+//
+//frente();
+//delay(600);
+//
+//parar();
+//delay(500);
+//
+//tras();
+//delay(1000);
+//
+//parar();
+//delay(1000);
+//
+//  giroscopio_X();
+//    angleX = 0;
+//    atualiza();
+//    while (angleX > -195)
+//{
+//  
+//      giroscopio_X();
+//      Serial.println(angleX);
+//      digitalWrite(led3, LOW);
+//      digitalWrite(led4, HIGH);
+//      analogWrite(mfd, 200);
+//      analogWrite(mtd, 0);
+//      analogWrite(mfe, 0);
+//      analogWrite(mte, 200);
+//}
+//
+//parar();
+//delay(1000);
+//
+//tras();
+//delay(2000);
+//
+//parar();
+//delay(1000);
+//
+//atualiza();
+//if (S_DiT > 400)
+//{
+//  atualiza();
+//  digitalWrite(led4, HIGH);
+//  digitalWrite(led3, LOW);
+//  base2 = 1;
+//}
+//atualiza();
+//
+// if (S_DiT< 400)
+// {
+//  atualiza();
+//  digitalWrite(led5, HIGH);
+//  digitalWrite(led3, LOW);
+//
+//  base3 = 1;
+//}
+//
+//if ((base1 == 1) && (base2 == 1))
+//
+//{
+// 
+//frente();
+//delay(1500);
+//
+//direita();
+//delay(600);
+//
+//tras();
+//delay(1500);
+//
+//parar();
+//delay(5000);
+//
+//
+//
+//
+//}
+//
+//if ((base2 == 1) && (base3 == 1))
+//
+//{
+//
+// 
+//frente();
+//delay(1500);
+//
+//parar();
+//delay(500);
+//
+//direita();
+//delay(600);
+//
+//parar();
+//delay(500);
+//
+//tras();
+//delay(1500);
+//
+//parar();
+//delay(5000);
+//
+//
+//}
+//
+//if ((base1 == 1) && (base3 == 1))
+//{
+//
+//frente();
+//delay(1500);
+//
+//parar();
+//delay(500);
+//
+//esquerda();
+//delay(600);
+//
+//parar();
+//delay(500);
+//
+//tras();
+//delay(1500);
+//
+//
+//}
+//
+//
+//    
+//}
+//
+//    
+//    
+//}
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+
+
+atualiza();
+
+  //90 DIREITA
+  if ((S_TED == 1) && (S_TC == 1) && (S_FC == 0) && (S_FE == 0) && (S_FD == 0) && (S_TEE == 0))
+  {
+    Serial.println("90 direita");
+    parar();
+    delay(500);
+    
+
+    analogWrite(mfd, 170);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 170);
+    analogWrite(mte, 0);
+    delay(300);
+
+    atualiza();
+//    Serial.println(S_TC);
+//    Serial.println(S_TE);
+
+    angleX = 0;
+    atualiza();
+    while (angleX <60)
+{
+  
+      giroscopio_X();
+      Serial.println(angleX);
+      digitalWrite(led1, HIGH);
+      digitalWrite(led5, HIGH);
+      analogWrite(mfd, 0);
+      analogWrite(mtd, 200);
+      analogWrite(mfe, 220);
+      analogWrite(mte, 0);
+}
+
+
+    atualiza();
+    while (S_TC == 0)
+    {
+      digitalWrite(led5, LOW);
+      digitalWrite(led1, LOW);
+      digitalWrite(led4, HIGH);
+      Serial.println(S_TC);
+      Serial.println(S_TE);
+      atualiza();
+      Serial.println("curva 90 direita");
+
+      analogWrite(mfd, 0);
+      analogWrite(mtd, 190);
+      analogWrite(mfe, 225);
+      analogWrite(mte, 0);
+    }
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 170);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 170);
+    delay(120);
+    return;
+  }
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+atualiza();
+
+  //90 ESQUERDA
+  
+  if ((S_TEE == 1) && (S_TC == 1) && (S_FC == 0) && (S_FE == 0) && (S_FD == 0) && (S_TED == 0))
+  {
+    Serial.println("90 esquerda");
+    parar();
+    delay(500);
+
+    analogWrite(mfd, 170);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 170);
+    analogWrite(mte, 0);
+    digitalWrite(led2, LOW);
+    delay(200);
+atualiza();
+
+    angleX = 0;
+    atualiza();
+    while (angleX > -60)
+{
+  
+      giroscopio_X();
+      Serial.println(angleX);
+      digitalWrite(led1, HIGH);
+      digitalWrite(led5, HIGH);
+      analogWrite(mfd, 200);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 0);
+      analogWrite(mte, 200);
+}
+
+    atualiza();
+    Serial.println(S_TC);
+    Serial.println(S_TD);
+    while (S_TC == 0)
+    {
+      digitalWrite(led4, HIGH);
+      digitalWrite(led5, LOW);
+      digitalWrite(led1, LOW);
+      Serial.println(S_TC);
+      Serial.println(S_TD);
+      atualiza();
+      Serial.println("curva 90 esquerda");
+
+      analogWrite(mfd, 200);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 0);
+      analogWrite(mte, 200);
+
+
+    }
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 170);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 170);
+    delay(150);
+    return;
+  }
+
+
+//REDUTOR
+
+
+digitalWrite(botao, HIGH);
+
+if (botao == 0)
+{
+    analogWrite(mfd, 230);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 230);
+    analogWrite(mte, 0);
+  delay(100);
+}
+
+//led
+  digitalWrite(led3, LOW);
+  digitalWrite(led2, LOW);
+
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+//==================================================================================================
+
+
+//VERDES
+ atualiza();
+  if (((S_TC == 1) && (S_TEE == 1) && (S_TE == 1)) || ((S_TC == 1) && (S_TED == 1) && (S_TD > 200)))
+  {
+    atualiza();
+    digitalWrite(led1, HIGH);
+    digitalWrite(led5, HIGH);
+    parar();
+    delay(500);
+    atualiza();
+
+    //while (1) {      VEIGA = 0;
+      DUDU = 0;
+      for (int i = 0; i < 100; i++) {
+        S_VEE = analogRead(A11); 
+        VEIGA = VEIGA + S_VEE;
+        S_VED = analogRead(A9);
+        DUDU = DUDU + S_VED;
+      }
+      VEIGA = VEIGA / 3;
+      DUDU = DUDU / 3;
+    
+atualiza();
+
+      Serial.print(VEIGA); Serial.print(" P "); Serial.println(DUDU);
+    
+    //}
+
+    //ENCRUZILHADA
+      atualiza();
+        if (((VEIGA >= 1175) && (VEIGA <= 1350)) && ((DUDU >= 1790 ) && (DUDU <= 2000 )))
+      {
+      digitalWrite(led4, HIGH);
+//      parar();
+//      delay(5000000000000);
+
+      tras();
+      delay(300);
+    
+         atualiza();
+   angleX = 0;
+   atualiza();
+   while (angleX <160)
+{
+ 
+     giroscopio_X();
+     Serial.println(angleX);
+     digitalWrite(led1, HIGH);
+     analogWrite(mfd, 0);
+     analogWrite(mtd, 200);
+     analogWrite(mfe, 220);
+     analogWrite(mte, 0);
+}
+
+
+
+   atualiza();
+   while (S_TC == 0)
+   {
+
+     digitalWrite(led4, HIGH);
+     Serial.println(S_TC);
+     Serial.println(S_TE);
+     atualiza();
+     Serial.println("curva verde direita");
+
+     analogWrite(mfd, 0);
+     analogWrite(mtd, 190);
+     analogWrite(mfe, 225);
+     analogWrite(mte, 0);
+   }
+   tras();
+   delay(100);
+   return;
+
+    
+          atualiza();
+          while (S_TC == 0)
+          {
+    
+            Serial.println(S_TC);
+            Serial.println(S_TE);
+            atualiza();
+            Serial.println("curva 90 direita");
+    
+            analogWrite(mfd, 0);
+            analogWrite(mtd, 190);
+            analogWrite(mfe, 225);
+            analogWrite(mte, 0);
+          }
+          analogWrite(mfd, 0);
+          analogWrite(mtd, 170);
+          analogWrite(mfe, 0);
+          analogWrite(mte, 170);
+          delay(120);
+          return;
+    
+      }
+      
+//VERDE ESQUERDA
+          atualiza();
+        if ((VEIGA >= 1175) && (VEIGA <= 1350 ))
+        {
+      digitalWrite(led3, HIGH);
+      digitalWrite(led1, LOW);
+      digitalWrite(led5, LOW);
+      
+      analogWrite(mfd, 170);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 170);
+      analogWrite(mte, 0);
+      delay(270);
+
+
+ atualiza();
+
+    angleX = 0;
+    atualiza();
+    giroscopio_X();
+    while (angleX > -60)
+{
+  
+      giroscopio_X();
+      Serial.println(angleX);
+      analogWrite(mfd, 200);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 0);
+      analogWrite(mte, 200);
+}
+
+    atualiza();
+    Serial.println(S_TC);
+    Serial.println(S_TD);
+    while (S_TC == 0)
+    {
+      digitalWrite(led4, HIGH);
+      digitalWrite(led5, LOW);
+      digitalWrite(led1, LOW);
+      Serial.println(S_TC);
+      Serial.println(S_TD);
+      atualiza();
+      Serial.println("curva 90 esquerda");
+
+      analogWrite(mfd, 200);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 0);
+      analogWrite(mte, 200);
+
+
+    }
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 170);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 170);
+    delay(150);
+    return;
+
+  }
+
+//asm volatile ("jmp 0");
+  
+
+
+
+//asm volatile ("jmp 0");
+atualiza();
+//VERDE DIREITA
+        if ((DUDU >= 1790 ) && (DUDU <= 2000 ))
+        {
+         digitalWrite(led3, HIGH);
+         digitalWrite(led1, LOW);
+         digitalWrite(led5, LOW);
+         
+          frente();
+          delay(370);
+   atualiza();
+   angleX = 0;
+   atualiza();
+   while (angleX <60)
+{
+ 
+     giroscopio_X();
+     Serial.println(angleX);
+     digitalWrite(led3, HIGH);
+     analogWrite(mfd, 0);
+     analogWrite(mtd, 200);
+     analogWrite(mfe, 220);
+     analogWrite(mte, 0);
+}
+
+
+
+   atualiza();
+   while (S_TC == 0)
+   {
+
+     digitalWrite(led3, HIGH);
+     Serial.println(S_TC);
+     Serial.println(S_TE);
+     atualiza();
+     Serial.println("curva verde direita");
+
+     analogWrite(mfd, 0);
+     analogWrite(mtd, 190);
+     analogWrite(mfe, 225);
+     analogWrite(mte, 0);
+   }
+   tras();
+   delay(100);
+   return;
+   
+        }
+
+        
+//asm volatile ("jmp 0");
+
+else{
+
+  digitalWrite(led2, HIGH);
+  frente();
+  delay(200);
+}
+  }
+
+
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+//OBSTÁCULO
+
+  atualiza();
+  if (S_Di > 410)
+  {
+    
+parar();
+delay(500);
+angleX =0;
+giroscopio_X();
+
+    angleX = 0;
+    while (angleX < 780)
+{
+    giroscopio_X();
+    //direita
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 190);
+    analogWrite(mfe, 205);
+    analogWrite(mte, 0);
+}
+
+    parar();
+    delay(500);
+
+    frente();
+    delay(1100);
+
+    parar();
+    delay(500);
+
+//    esquerda
+giroscopio_X();
+
+angleX=0;
+while (angleX >-760)
+{
+  giroscopio_X();
+    analogWrite(mfd, 200);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 200);
+}
+
+    parar();
+    delay(500);
+
+    frente();
+    delay(2300);
+
+
+//
+    parar();
+    delay(500);
+//    
+//    esquerda
+giroscopio_X();
+
+angleX=0;
+while (angleX >-760)
+{
+  giroscopio_X();
+    analogWrite(mfd, 200);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 200);
+}
+    parar();
+    delay(1000);
+  
+    atualiza();  
+    while (S_TC == 0)
+    {
+      
+      digitalWrite(led1, HIGH);
+      digitalWrite(led2, HIGH);
+      digitalWrite(led5, HIGH);
+      frente();
+      atualiza();
+    }
+    atualiza();
+  
+
+  parar();
+  delay(700);
+  frente();
+  delay(250);
+
+
+    angleX = 0;
+    atualiza();
+    while (angleX <60)
+{
+  
+      giroscopio_X();
+      Serial.println(angleX);
+      digitalWrite(led1, HIGH);
+      digitalWrite(led5, HIGH);
+      analogWrite(mfd, 0);
+      analogWrite(mtd, 200);
+      analogWrite(mfe, 200);
+      analogWrite(mte, 0);
+}
+
+
+    atualiza();
+    while (S_TC == 0)
+    {
+      digitalWrite(led5, LOW);
+      digitalWrite(led1, LOW);
+      digitalWrite(led4, HIGH);
+      Serial.println(S_TC);
+      Serial.println(S_TE);
+      atualiza();
+      Serial.println("curva 90 direita O");
+
+      analogWrite(mfd, 0);
+      analogWrite(mtd, 190);
+      analogWrite(mfe, 205);
+      analogWrite(mte, 0);
+    }
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 170);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 170);
+    delay(120);
+    return;
+
+  }
+
+
+
+
+
+  
+//==============================================================================================================================
+//==============================================================================================================================
+
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+
+//==============================================================================================================================
+//==============================================================================================================================
+
+atualiza();
+
+  //SEGUE LINHA
+  if ((S_TE == 0) && (S_TD < 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("tudobranco");
+    analogWrite(mfd, 130);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 180);
+    analogWrite(mte, 0);
+    atualiza();
+    return;
+
+  }
+  atualiza();
+  if ((S_TE == 0) && (S_TD > 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("ajuste direita");
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 190);
+    analogWrite(mfe, 220);
+    analogWrite(mte, 0);
+    atualiza();
+    return;
+    
+
+  }
+atualiza();
+  if ((S_TE == 1) && (S_TD < 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("ajuste esquerda");
+    analogWrite(mfd, 190);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 220);
+    atualiza();
+    
+    return;
+  }
+}
