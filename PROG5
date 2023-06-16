@@ -368,258 +368,258 @@ void loop() {
   //==============================================================================================================================
 
 
-//  //RAMPA
-//  
-//    giroscopio_Z();
-//  
-//  
-//  
-//    if  ((S_DiT > 200) && (S_DiF > 200))
-//  {
-//    Serial.println("RAMPA");
-//    digitalWrite(led1, HIGH);
-//    digitalWrite(led5, HIGH);
-//    digitalWrite(led4, HIGH);
-//  
-//        //Segue linha
-//        atualiza();
-//    if ((S_TE == 0) && (S_TD < 200))
-//    {
-//      analogWrite(mfd, 200);
-//      analogWrite(mtd, 0);
-//      analogWrite(mfe, 210);
-//      analogWrite(mte, 0);
-//      atualiza();
-//      return;
-//    }
-//    atualiza();
-//    if ((S_TE == 0) && (S_TD > 200))
-//    {
-//      analogWrite(mfd, 50);
-//      analogWrite(mtd, 0);
-//      analogWrite(mfe, 200);
-//      analogWrite(mte, 0);
-//      atualiza();
-//      return;
-//  
-//    }
-//  atualiza();
-//    if ((S_TE == 1) && (S_TD < 200))
-//    {
-//      analogWrite(mfd, 200);
-//      analogWrite(mtd, 0);
-//      analogWrite(mfe, 50);
-//      analogWrite(mte, 0);
-//      atualiza();
-//      return;
-//    }
-//  atualiza();
-//    if ((S_TE == 1) && (S_TD > 200))
-//  {
-//  base1 = 0;
-//  base2 = 0;
-//  base3 = 0;
-//  
-//      analogWrite(mfd, 200);
-//      analogWrite(mtd, 0);
-//      analogWrite(mfe, 220);
-//      analogWrite(mte, 0);
-//      delay(2200);
-//  
-//      parar();
-//      delay(800);
-//  
-//      analogWrite(mgf, 200);
-//  
-//      giroscopio_X();
-//      angleX = 0;
-//      atualiza();
-//      while (angleX > -90)
-//  {
-//  
-//        giroscopio_X();
-//        Serial.println(angleX);
-//        digitalWrite(led1, HIGH);
-//        digitalWrite(led5, HIGH);
-//        analogWrite(mfd, 200);
-//        analogWrite(mtd, 0);
-//        analogWrite(mfe, 0);
-//        analogWrite(mte, 200);
-//  }
-//  
-//  tras();
-//  delay(2000);
-//  
-//  atualiza();
-//  
-//  if (S_DiT >= 350)
-//  {
-//    atualiza();
-//    base1 = 1;
-//    digitalWrite(led3, HIGH);
-//  }
-//  
-//  base2 = 0;
-//  base3 = 0;
-//  atualiza();
-//  while (S_Di <= 470)
-//  {
-//        atualiza();
-//        analogWrite(mfd, 110);
-//        analogWrite(mtd, 0);
-//        analogWrite(mfe, 190);
-//        analogWrite(mte, 0);
-//  
-//  }
-//  
-//  parar();
-//  delay(1000);
-//  
-//  frente();
-//  delay(600);
-//  
-//  parar();
-//  delay(500);
-//  
-//  tras();
-//  delay(1000);
-//  
-//  parar();
-//  delay(1000);
-//  
-//    giroscopio_X();
-//      angleX = 0;
-//      atualiza();
-//      while (angleX > -195)
-//  {
-//  
-//        giroscopio_X();
-//        Serial.println(angleX);
-//        digitalWrite(led3, LOW);
-//        digitalWrite(led4, HIGH);
-//        analogWrite(mfd, 200);
-//        analogWrite(mtd, 0);
-//        analogWrite(mfe, 0);
-//        analogWrite(mte, 200);
-//  }
-//  
-//  parar();
-//  delay(1000);
-//  
-//  tras();
-//  delay(2000);
-//  
-//  parar();
-//  delay(1000);
-//  
-//  atualiza();
-//  if (S_DiT >= 370)
-//  {
-//    atualiza();
-//    digitalWrite(led4, HIGH);
-//    digitalWrite(led3, LOW);
-//    base2 = 1;
-//  }
-//  atualiza();
-//
-//  if ((S_DiT >= 370) && (base1 == 0))
-//  {
-//    base3 = 1;
-//    base2 = 1;
-//  }
-//  
-//   if (S_DiT <= 370)
-//
-//   if ((S_DiT <= 370) && (base1 == 0))
-//   {
-//    base2 == 1;
-//    base3 == 1;
-//   }
-//   {
-//    atualiza();
-//    digitalWrite(led5, HIGH);
-//    digitalWrite(led3, LOW);
-//  
-//    base3 = 1;
-//  }
-//  
-//  if ((base1 == 1) && (base2 == 1))
-//  
-//  {
-//  
-//  frente();
-//  delay(1500);
-//  
-//  esquerda();
-//  delay(600);
-//  
-//  tras();
-//  delay(1500);
-//  
-//  parar();
-//  delay(1000);
-//  analogWrite(servo, 155);
-//  
-//  
-//  
-//  
-//  }
-//  
-//  if ((base2 == 1) && (base3 == 1))
-//  
-//  {
-//  
-//  
-//  frente();
-//  delay(1500);
-//  
-//  parar();
-//  delay(500);
-//  
-//  direita();
-//  delay(600);
-//  
-//  parar();
-//  delay(500);
-//  
-//  tras();
-//  delay(1500);
-//  
-//  parar();
-//  delay(5000);
-//  analogWrite(servo, 155);
-//  
-//  
-//  }
-//  
-//  if ((base1 == 1) && (base3 == 1))
-//  {
-//  
-//  frente();
-//  delay(1500);
-//  
-//  parar();
-//  delay(500);
-//  
-//  direita();
-//  delay(600);
-//  
-//  parar();
-//  delay(500);
-//  
-//  tras();
-//  delay(1500);
-//  
-//  
-//  }
-//  
-//  
-//  
-//  }
-//  
-//  
-//  
-//  }
+  //RAMPA
+  
+    giroscopio_Z();
+  
+  
+  
+    if  ((S_DiT > 200) && (S_DiF > 200))
+  {
+    Serial.println("RAMPA");
+    digitalWrite(led1, HIGH);
+    digitalWrite(led5, HIGH);
+    digitalWrite(led4, HIGH);
+  
+        //Segue linha
+        atualiza();
+    if ((S_TE == 0) && (S_TD < 200))
+    {
+      analogWrite(mfd, 220);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 230);
+      analogWrite(mte, 0);
+      atualiza();
+      return;
+    }
+    atualiza();
+    if ((S_TE == 0) && (S_TD > 200))
+    {
+      analogWrite(mfd, 50);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 200);
+      analogWrite(mte, 0);
+      atualiza();
+      return;
+  
+    }
+  atualiza();
+    if ((S_TE == 1) && (S_TD < 200))
+    {
+      analogWrite(mfd, 200);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 50);
+      analogWrite(mte, 0);
+      atualiza();
+      return;
+    }
+  atualiza();
+    if ((S_TE == 1) && (S_TD > 200))
+  {
+  base1 = 0;
+  base2 = 0;
+  base3 = 0;
+  
+      analogWrite(mfd, 200);
+      analogWrite(mtd, 0);
+      analogWrite(mfe, 220);
+      analogWrite(mte, 0);
+      delay(2200);
+  
+      parar();
+      delay(800);
+  
+      analogWrite(mgf, 200);
+  
+      giroscopio_X();
+      angleX = 0;
+      atualiza();
+      while (angleX > -90)
+  {
+  
+        giroscopio_X();
+        Serial.println(angleX);
+        digitalWrite(led1, HIGH);
+        digitalWrite(led5, HIGH);
+        analogWrite(mfd, 200);
+        analogWrite(mtd, 0);
+        analogWrite(mfe, 0);
+        analogWrite(mte, 200);
+  }
+  
+  tras();
+  delay(2000);
+  
+  atualiza();
+  
+  if (S_DiT >= 350)
+  {
+    atualiza();
+    base1 = 1;
+    digitalWrite(led3, HIGH);
+  }
+  
+  base2 = 0;
+  base3 = 0;
+  atualiza();
+  while (S_Di <= 470)
+  {
+        atualiza();
+        analogWrite(mfd, 110);
+        analogWrite(mtd, 0);
+        analogWrite(mfe, 190);
+        analogWrite(mte, 0);
+  
+  }
+  
+  parar();
+  delay(1000);
+  
+  frente();
+  delay(600);
+  
+  parar();
+  delay(500);
+  
+  tras();
+  delay(1000);
+  
+  parar();
+  delay(1000);
+  
+    giroscopio_X();
+      angleX = 0;
+      atualiza();
+      while (angleX > -195)
+  {
+  
+        giroscopio_X();
+        Serial.println(angleX);
+        digitalWrite(led3, LOW);
+        digitalWrite(led4, HIGH);
+        analogWrite(mfd, 200);
+        analogWrite(mtd, 0);
+        analogWrite(mfe, 0);
+        analogWrite(mte, 200);
+  }
+  
+  parar();
+  delay(1000);
+  
+  tras();
+  delay(2000);
+  
+  parar();
+  delay(1000);
+  
+  atualiza();
+  if (S_DiT >= 370)
+  {
+    atualiza();
+    digitalWrite(led4, HIGH);
+    digitalWrite(led3, LOW);
+    base2 = 1;
+  }
+  atualiza();
+
+  if ((S_DiT >= 370) && (base1 == 0))
+  {
+    base3 = 1;
+    base2 = 1;
+  }
+  
+   if (S_DiT <= 370)
+
+   if ((S_DiT <= 370) && (base1 == 0))
+   {
+    base2 == 1;
+    base3 == 1;
+   }
+   {
+    atualiza();
+    digitalWrite(led5, HIGH);
+    digitalWrite(led3, LOW);
+  
+    base3 = 1;
+  }
+  
+  if ((base1 == 1) && (base2 == 1))
+  
+  {
+  
+  frente();
+  delay(1500);
+  
+  esquerda();
+  delay(600);
+  
+  tras();
+  delay(1500);
+  
+  parar();
+  delay(1000);
+  analogWrite(servo, 155);
+  
+  
+  
+  
+  }
+  
+  if ((base2 == 1) && (base3 == 1))
+  
+  {
+  
+  
+  frente();
+  delay(1500);
+  
+  parar();
+  delay(500);
+  
+  direita();
+  delay(600);
+  
+  parar();
+  delay(500);
+  
+  tras();
+  delay(1500);
+  
+  parar();
+  delay(5000);
+  analogWrite(servo, 155);
+  
+  
+  }
+  
+  if ((base1 == 1) && (base3 == 1))
+  {
+  
+  frente();
+  delay(1500);
+  
+  parar();
+  delay(500);
+  
+  direita();
+  delay(600);
+  
+  parar();
+  delay(500);
+  
+  tras();
+  delay(1500);
+  
+  
+  }
+  
+  
+  
+  }
+  
+  
+  
+  }
 
   //==============================================================================================================================
   //==============================================================================================================================
