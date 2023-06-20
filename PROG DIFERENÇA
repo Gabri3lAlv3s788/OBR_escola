@@ -1,0 +1,233 @@
+int S_FE = 47 ; // Sensor frontal esquerda
+int S_FC = 41 ; // Sensor frontal centro
+int S_FD = 34 ; // Sensor frontal direita
+int S_TE = 44 ; // Sensor traseiro  esquerda / 1 = branco / 0 = preto
+int S_TEE = 50 ; //Sensor traseiro extremo esquerda / 1 = branco / 0 = preto
+int S_TC = 35 ; // Sensor traseiro centro / 1 = branco / 0 = preto
+int S_TD = A2 ; // Sensor traseiro direita / 1 branco / 0 preto
+int S_TED = 53 ; //Sensor traseiro extrema direita / 1 = branco / 0 = preto
+int S_VEE = A11 ;//Sensor verde extrema esquerda
+int S_VE = A13 ;// Sensor verde esquerda
+int S_VED = A9;//  Sensor verde extrema direita
+int S_VD = A15 ;// Sensor verde direita
+int S_Di = A7; //  Sensor de distância
+int S_DiF = A4; // Sensor de distância frontal
+int S_DiT = A12; //Sensor de distância traseirio
+
+byte mfd = 11 ;//  Motor frontal direita
+byte mtd = 10; //  Motor traseiro direita
+byte mte = 5;  //  Motor traseiro esquerda
+byte mfe = 4 ; //  Motor frontal esquerda
+
+byte led1 = 22 ;// led esquerdo
+byte led2 = 24 ;// led vermelho
+byte led3 = 26 ;// led verde
+byte led4 = 28 ;// led azul
+byte led5 = 30 ; //led direito
+
+
+int V_VE;
+int V_VD;
+int diff_VE;
+int diff_VD;
+
+
+
+//===============================================================================================================================================
+//===============================================================================================================================================
+//FUNÇÕES
+
+void frenteR() //Função de ir à frente
+{
+  analogWrite(mfd, 150);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 200);
+  analogWrite(mte, 0);
+}
+
+
+void frente() //Função de ir à frente
+{
+  analogWrite(mfd, 110);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 190);
+  analogWrite(mte, 0);
+}
+
+
+void direita() //Função de ajuste à direita
+{
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 170);
+  analogWrite(mfe, 170);
+  analogWrite(mte, 0);
+}
+
+void esquerda() //Função de ajuste à esquerda
+{
+  analogWrite(mfd, 170);
+  analogWrite(mtd, 0);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 170);
+}
+void parar() //Função de parar o robô
+{
+  analogWrite(mfd, 250);
+  analogWrite(mtd, 250);
+  analogWrite(mfe, 250);
+  analogWrite(mte, 250);
+}
+
+void tras() //Função de parar o robô
+{
+  analogWrite(mfd, 0);
+  analogWrite(mtd, 150);
+  analogWrite(mfe, 0);
+  analogWrite(mte, 150);
+}
+
+
+void atualiza() //Função de atualização dos sensores
+{
+
+  S_FE = digitalRead(47);
+  S_FC = digitalRead(41);
+  S_FD = digitalRead(34);
+  S_TE = digitalRead(44);
+  S_TEE = digitalRead(50);
+  S_TC = digitalRead(35);
+  S_TD = analogRead(A2);
+  S_TED = digitalRead(53);
+  S_VEE = analogRead(A11);
+  S_VE = analogRead(A13);
+  S_VED = analogRead(A15);
+  S_VD = analogRead(A9);
+  S_Di = analogRead(A7);
+  S_DiF = analogRead(A4);
+  S_DiT = analogRead(A12);
+
+}
+
+
+
+
+void setup() {
+  // put your setup code here, to run once:
+
+
+  pinMode(mfd, OUTPUT);
+  pinMode(mtd, OUTPUT);
+  pinMode(mfe, OUTPUT);
+  pinMode(mte, OUTPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
+  pinMode(led5, OUTPUT);
+
+
+  pinMode(S_FE, INPUT_PULLUP);
+  pinMode(S_FC, INPUT_PULLUP);
+  pinMode(S_FD, INPUT_PULLUP);
+  pinMode(S_TE, INPUT_PULLUP);
+  pinMode(S_TEE, INPUT_PULLUP);
+  pinMode(S_TC, INPUT_PULLUP);
+  pinMode(S_TD, INPUT_PULLUP);
+  pinMode(S_TED, INPUT_PULLUP);
+  pinMode(S_VED, INPUT_PULLUP);
+  pinMode(S_VE, INPUT_PULLUP);
+  pinMode(S_VED, INPUT_PULLUP);
+  pinMode(S_VD, INPUT_PULLUP);
+
+
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+atualiza();
+
+if ((S_TED == 1) && (S_TEE == 1)){
+
+digitalWrite(led5, HIGH);
+parar();
+delay(10000);
+
+atualiza();
+
+V_VE = S_VE;
+V_VD = S_VD;
+Serial.print("V_VE = "); Serial.print(V_VE); Serial.print(" | "); Serial.print("V_VD: "); Serial.println(V_VD);
+tras();
+delay(130);
+atualiza();
+parar();
+delay(10000);
+atualiza();
+diff_VE = V_VE - S_VE;
+diff_VD = V_VD - S_VD;
+Serial.print("S_VE: "); Serial.print(S_VE); Serial.print(" | "); Serial.print(" diff_VE "); Serial.print(diff_VE); Serial.print(" | "); 
+Serial.print(" | "); Serial.print(" diff_VD "); Serial.println(diff_VD); 
+
+
+
+
+  
+}
+
+
+
+
+
+
+//Segue linha
+  atualiza();
+  
+  if ((S_TE == 0) && (S_TD < 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("tudobranco");
+    analogWrite(mfd, 130);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 180);
+    analogWrite(mte, 0);
+    atualiza();
+    return;
+
+  }
+  atualiza();
+  if ((S_TE == 0) && (S_TD > 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("ajuste direita");
+    analogWrite(mfd, 0);
+    analogWrite(mtd, 190);
+    analogWrite(mfe, 220);
+    analogWrite(mte, 0);
+    atualiza();
+    return;
+
+
+  }
+  atualiza();
+  if ((S_TE == 1) && (S_TD < 200))
+  {
+    digitalWrite(led3, LOW);
+    digitalWrite(led2, LOW);
+    Serial.println("ajuste esquerda");
+    analogWrite(mfd, 190);
+    analogWrite(mtd, 0);
+    analogWrite(mfe, 0);
+    analogWrite(mte, 220);
+    atualiza();
+
+    return;
+  }
+
+
+
+
+}
