@@ -139,6 +139,7 @@ void setup() {
   pinMode(S_VED, INPUT_PULLUP);
   pinMode(S_VD, INPUT_PULLUP);
 
+Serial.begin(9600);
 
 
 }
@@ -152,21 +153,21 @@ if ((S_TED == 1) && (S_TEE == 1)){
 
 digitalWrite(led5, HIGH);
 parar();
-delay(10000);
+delay(1000);
 
 atualiza();
 
-V_VE = S_VE;
-V_VD = S_VD;
+V_VE = S_VE * 2;
+V_VD = S_VD * 2;
 Serial.print("V_VE = "); Serial.print(V_VE); Serial.print(" | "); Serial.print("V_VD: "); Serial.println(V_VD);
 tras();
-delay(130);
+delay(300);
 atualiza();
 parar();
-delay(10000);
+delay(1000);
 atualiza();
-diff_VE = V_VE - S_VE;
-diff_VD = V_VD - S_VD;
+diff_VE = V_VE - (S_VE * 2);
+diff_VD = V_VD - (S_VD * 2);
 Serial.print("S_VE: "); Serial.print(S_VE); Serial.print(" | "); Serial.print(" diff_VE "); Serial.print(diff_VE); Serial.print(" | "); 
 Serial.print(" | "); Serial.print(" diff_VD "); Serial.println(diff_VD); 
 
@@ -215,7 +216,7 @@ Serial.print(" | "); Serial.print(" diff_VD "); Serial.println(diff_VD);
   atualiza();
   if ((S_TE == 1) && (S_TD < 200))
   {
-    digitalWrite(led3, LOW);
+    digitalWrite(led3, LOW); 
     digitalWrite(led2, LOW);
     Serial.println("ajuste esquerda");
     analogWrite(mfd, 190);
